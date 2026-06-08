@@ -3,389 +3,451 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Contactos HubSpot · GuruSup</title>
+  <title>Dashboard Contactos · GuruSup</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #222636;
-      --border: #2e3347;
-      --accent: #ff7a00;
-      --accent2: #ff4d6d;
-      --accent3: #00c8a0;
-      --accent4: #4e8ef7;
-      --accent5: #a855f7;
-      --text: #e8eaf0;
-      --muted: #7c82a0;
-      --warn: #f59e0b;
+      --brand:    #FF6B5B;
+      --brand-dk: #e05545;
+      --brand-lt: rgba(255,107,91,.12);
+      --bg:       #2B2D31;
+      --surface:  #1A1D28;
+      --surface2: #20232f;
+      --border:   #252836;
+      --text:     #F2F3F7;
+      --muted:    #AEAEAE;
+      --green:    #2DD4BF;
+      --blue:     #60A5FA;
+      --amber:    #FBBF24;
+      --purple:   #A78BFA;
+      --red:      #F87171;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 24px;
+      padding: 28px 24px 48px;
     }
-    header {
+
+    /* ── HEADER ─────────────────────────────────────── */
+    .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 32px;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
     }
-    header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    header h1 span { color: var(--accent); }
-    .badge {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    .badge strong { color: var(--text); }
-
-    /* KPI GRID */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    .kpi-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 20px 16px;
-      position: relative;
-      overflow: hidden;
-      transition: transform .15s;
-    }
-    .kpi-card:hover { transform: translateY(-2px); }
-    .kpi-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 14px 14px 0 0;
-    }
-    .kpi-card.blue::before   { background: var(--accent4); }
-    .kpi-card.green::before  { background: var(--accent3); }
-    .kpi-card.orange::before { background: var(--accent); }
-    .kpi-card.red::before    { background: var(--accent2); }
-    .kpi-card.purple::before { background: var(--accent5); }
-    .kpi-card.warn::before   { background: var(--warn); }
-
-    .kpi-icon {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-    .kpi-label {
-      font-size: 0.75rem;
-      color: var(--muted);
+    .brand-block { display: flex; flex-direction: column; gap: 2px; }
+    .brand-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      letter-spacing: .6px;
-      margin-bottom: 6px;
+      color: var(--muted);
     }
-    .kpi-value {
-      font-size: 2rem;
-      font-weight: 800;
+    .brand-name {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--brand);
       line-height: 1;
     }
-    .kpi-card.blue   .kpi-value { color: var(--accent4); }
-    .kpi-card.green  .kpi-value { color: var(--accent3); }
-    .kpi-card.orange .kpi-value { color: var(--accent); }
-    .kpi-card.red    .kpi-value { color: var(--accent2); }
-    .kpi-card.purple .kpi-value { color: var(--accent5); }
-    .kpi-card.warn   .kpi-value { color: var(--warn); }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+      letter-spacing: .04em;
+    }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .date-badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .date-badge strong { color: var(--text); }
+    .live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(45,212,191,.1);
+      border: 1px solid rgba(45,212,191,.3);
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .live-dot::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.7); }
+    }
 
-    .kpi-sub {
-      font-size: 0.72rem;
+    /* ── SECTION LABEL ──────────────────────────────── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── KPI GRID ───────────────────────────────────── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 18px 14px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, transform .15s;
+    }
+    .kpi:hover {
+      border-color: rgba(255,107,91,.35);
+      transform: translateY(-2px);
+    }
+    .kpi-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 12px 12px 0 0;
+    }
+    .kpi-icon { font-size: 18px; margin-bottom: 10px; }
+    .kpi-lbl {
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .kpi-val {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.5px;
+    }
+    .kpi-hint {
+      font-size: 11px;
       color: var(--muted);
       margin-top: 6px;
     }
 
-    /* CHARTS GRID */
-    .charts-grid {
+    /* ── TWO-COL CHARTS ─────────────────────────────── */
+    .charts-row {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-      margin-bottom: 28px;
+      grid-template-columns: 1.9fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
     }
-    @media (max-width: 900px) {
-      .charts-grid { grid-template-columns: 1fr; }
-    }
-    .chart-card {
+    @media (max-width: 860px) { .charts-row { grid-template-columns: 1fr; } }
+
+    .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 22px;
     }
-    .chart-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--muted);
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      letter-spacing: .6px;
-      margin-bottom: 18px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .chart-title span { color: var(--text); }
-    .chart-wrap {
-      position: relative;
+    .card-title span { color: var(--text); }
+    .card-title .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
-    /* MISSING FIELDS BAR */
-    .missing-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 28px;
-    }
+    /* ── MISSING FIELDS ─────────────────────────────── */
     .field-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 10px;
+      margin-bottom: 13px;
     }
-    .field-label {
-      width: 130px;
-      font-size: 0.8rem;
+    .field-name {
+      width: 110px;
+      font-size: 12px;
       color: var(--muted);
       flex-shrink: 0;
     }
-    .field-bar-bg {
+    .bar-bg {
       flex: 1;
+      height: 8px;
       background: var(--surface2);
-      border-radius: 6px;
-      height: 10px;
+      border-radius: 4px;
       overflow: hidden;
     }
-    .field-bar-fill {
+    .bar-fill {
       height: 100%;
-      border-radius: 6px;
-      transition: width .6s ease;
+      border-radius: 4px;
     }
-    .field-count {
-      width: 70px;
+    .field-num {
+      width: 52px;
       text-align: right;
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
     }
     .field-pct {
-      width: 42px;
+      width: 38px;
       text-align: right;
-      font-size: 0.72rem;
+      font-size: 11px;
       color: var(--muted);
     }
 
-    /* TABLE */
-    .table-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    /* ── STATUS TABLE ───────────────────────────────── */
+    .table-full { margin-bottom: 0; }
+    table { width: 100%; border-collapse: collapse; }
     thead th {
-      font-size: 0.72rem;
-      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .09em;
       text-transform: uppercase;
-      letter-spacing: .6px;
-      padding: 0 12px 12px;
+      color: var(--muted);
+      padding: 0 10px 10px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .12s;
-    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--surface2); }
-    tbody td {
-      padding: 12px;
-      font-size: 0.85rem;
-    }
-    .status-pill {
+    tbody td { padding: 11px 10px; font-size: 13px; }
+
+    .pill {
       display: inline-block;
       padding: 3px 10px;
-      border-radius: 12px;
-      font-size: 0.72rem;
-      font-weight: 600;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .04em;
     }
-    .pill-red    { background: rgba(255,77,109,.15); color: #ff4d6d; }
-    .pill-blue   { background: rgba(78,142,247,.15); color: #4e8ef7; }
-    .pill-orange { background: rgba(255,122,0,.15);  color: #ff7a00; }
-    .pill-green  { background: rgba(0,200,160,.15);  color: #00c8a0; }
-    .pill-purple { background: rgba(168,85,247,.15); color: #a855f7; }
 
-    .bar-mini-bg {
-      background: var(--surface2);
-      border-radius: 4px;
-      height: 6px;
-      width: 120px;
-      overflow: hidden;
+    .mini-bar-bg {
       display: inline-block;
       vertical-align: middle;
+      background: var(--surface2);
+      border-radius: 3px;
+      height: 5px;
+      width: 100px;
+      overflow: hidden;
     }
-    .bar-mini-fill {
-      height: 100%;
-      border-radius: 4px;
-    }
+    .mini-bar-fill { height: 100%; border-radius: 3px; }
 
-    .section-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      margin-bottom: 14px;
-    }
-    .section-title span { color: var(--text); }
-
+    /* ── FOOTER ─────────────────────────────────────── */
     footer {
-      margin-top: 36px;
-      text-align: center;
-      font-size: 0.72rem;
-      color: var(--muted);
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
     }
+    footer .fl {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--brand);
+    }
+    footer .fr { font-size: 11px; color: var(--muted); }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>📊 Dashboard Contactos · <span>HubSpot</span></h1>
-  <div class="badge">Actualizado: <strong>8 junio 2026</strong></div>
+<!-- HEADER -->
+<header class="header">
+  <div class="brand-block">
+    <div class="brand-label">CRM Intelligence</div>
+    <div class="brand-name">GuruSup</div>
+    <div class="brand-sub">Dashboard Contactos HubSpot</div>
+  </div>
+  <div class="header-right">
+    <div class="date-badge">Actualizado: <strong>8 jun 2026</strong></div>
+    <div class="live-dot">Live</div>
+  </div>
 </header>
 
-<!-- KPI GRID -->
+<!-- KPIs -->
+<div class="section-label">KPIs principales</div>
 <div class="kpi-grid">
-  <div class="kpi-card blue">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--brand);"></div>
     <div class="kpi-icon">👥</div>
-    <div class="kpi-label">Total contactos</div>
-    <div class="kpi-value">9.022</div>
-    <div class="kpi-sub">Base total activa</div>
+    <div class="kpi-lbl">Total contactos</div>
+    <div class="kpi-val" style="color:var(--brand)">9.022</div>
+    <div class="kpi-hint">Base total activa</div>
   </div>
-  <div class="kpi-card green">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--green);"></div>
     <div class="kpi-icon">✨</div>
-    <div class="kpi-label">Nuevos este mes</div>
-    <div class="kpi-value">240</div>
-    <div class="kpi-sub">Junio 2026</div>
+    <div class="kpi-lbl">Nuevos este mes</div>
+    <div class="kpi-val" style="color:var(--green)">240</div>
+    <div class="kpi-hint">Junio 2026</div>
   </div>
-  <div class="kpi-card orange">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--blue);"></div>
     <div class="kpi-icon">✉️</div>
-    <div class="kpi-label">Sin email</div>
-    <div class="kpi-value">254</div>
-    <div class="kpi-sub">2,8% del total</div>
+    <div class="kpi-lbl">Sin email</div>
+    <div class="kpi-val" style="color:var(--blue)">254</div>
+    <div class="kpi-hint">2,8 % del total</div>
   </div>
-  <div class="kpi-card warn">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--amber);"></div>
     <div class="kpi-icon">🏢</div>
-    <div class="kpi-label">Sin empresa</div>
-    <div class="kpi-value">6.956</div>
-    <div class="kpi-sub">77,1% del total</div>
+    <div class="kpi-lbl">Sin empresa</div>
+    <div class="kpi-val" style="color:var(--amber)">6.956</div>
+    <div class="kpi-hint">77,1 % del total</div>
   </div>
-  <div class="kpi-card warn">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--amber);"></div>
     <div class="kpi-icon">🌍</div>
-    <div class="kpi-label">Sin país</div>
-    <div class="kpi-value">8.420</div>
-    <div class="kpi-sub">93,3% del total</div>
+    <div class="kpi-lbl">Sin país</div>
+    <div class="kpi-val" style="color:var(--amber)">8.420</div>
+    <div class="kpi-hint">93,3 % del total</div>
   </div>
-  <div class="kpi-card warn">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--amber);"></div>
     <div class="kpi-icon">💼</div>
-    <div class="kpi-label">Sin cargo</div>
-    <div class="kpi-value">3.536</div>
-    <div class="kpi-sub">39,2% del total</div>
+    <div class="kpi-lbl">Sin cargo</div>
+    <div class="kpi-val" style="color:var(--amber)">3.536</div>
+    <div class="kpi-hint">39,2 % del total</div>
   </div>
-  <div class="kpi-card purple">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--purple);"></div>
     <div class="kpi-icon">✅</div>
-    <div class="kpi-label">% Completos</div>
-    <div class="kpi-value">6,4%</div>
-    <div class="kpi-sub">581 contactos con todos los campos</div>
+    <div class="kpi-lbl">% Completos</div>
+    <div class="kpi-val" style="color:var(--purple)">6,4%</div>
+    <div class="kpi-hint">581 con todos los campos</div>
   </div>
-  <div class="kpi-card red">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--muted);"></div>
     <div class="kpi-icon">🗑️</div>
-    <div class="kpi-label">Contactos eliminados</div>
-    <div class="kpi-value">N/D</div>
-    <div class="kpi-sub">No disponible vía API</div>
+    <div class="kpi-lbl">Eliminados</div>
+    <div class="kpi-val" style="color:var(--muted);font-size:1.4rem;">N/D</div>
+    <div class="kpi-hint">No disponible vía API</div>
   </div>
-  <div class="kpi-card red">
+
+  <div class="kpi">
+    <div class="kpi-accent" style="background:var(--red);"></div>
     <div class="kpi-icon">🚫</div>
-    <div class="kpi-label">Descartados</div>
-    <div class="kpi-value">5.037</div>
-    <div class="kpi-sub">Estado: UNQUALIFIED</div>
+    <div class="kpi-lbl">Descartados</div>
+    <div class="kpi-val" style="color:var(--red)">5.037</div>
+    <div class="kpi-hint">Estado UNQUALIFIED</div>
   </div>
+
 </div>
 
-<!-- EVOLUCIÓN + PIE -->
-<div class="charts-grid">
-  <div class="chart-card">
-    <div class="chart-title"><span>Evolución mensual</span> — Contactos creados 2026</div>
-    <div class="chart-wrap" style="height:260px">
-      <canvas id="lineChart"></canvas>
+<!-- CHARTS ROW -->
+<div class="section-label">Evolución &amp; Completitud</div>
+<div class="charts-row">
+
+  <div class="card">
+    <div class="card-title">
+      <div class="dot" style="background:var(--brand);"></div>
+      <span>Evolución mensual</span> — contactos creados 2026
+    </div>
+    <div style="position:relative;height:230px;">
+      <canvas id="barChart"></canvas>
     </div>
   </div>
-  <div class="chart-card">
-    <div class="chart-title"><span>Completitud</span> — Todos los campos</div>
-    <div class="chart-wrap" style="height:260px; display:flex; align-items:center; justify-content:center;">
-      <canvas id="pieChart"></canvas>
+
+  <div class="card">
+    <div class="card-title">
+      <div class="dot" style="background:var(--purple);"></div>
+      <span>Completitud</span> — todos los campos
+    </div>
+    <div style="position:relative;height:230px;display:flex;align-items:center;justify-content:center;">
+      <canvas id="donutChart"></canvas>
     </div>
   </div>
+
 </div>
 
-<!-- CAMPOS FALTANTES -->
-<div class="missing-card">
-  <div class="section-title"><span>Campos faltantes</span> por categoría</div>
+<!-- MISSING FIELDS -->
+<div class="section-label" style="margin-top:16px;">Campos faltantes</div>
+<div class="card" style="margin-bottom:16px;">
   <div class="field-row">
-    <div class="field-label">Sin país</div>
-    <div class="field-bar-bg">
-      <div class="field-bar-fill" style="width:93.3%; background:#f59e0b;"></div>
-    </div>
-    <div class="field-count" style="color:#f59e0b;">8.420</div>
+    <div class="field-name">Sin país</div>
+    <div class="bar-bg"><div class="bar-fill" style="width:93.3%;background:var(--amber);"></div></div>
+    <div class="field-num" style="color:var(--amber)">8.420</div>
     <div class="field-pct">93,3%</div>
   </div>
   <div class="field-row">
-    <div class="field-label">Sin empresa</div>
-    <div class="field-bar-bg">
-      <div class="field-bar-fill" style="width:77.1%; background:#ff7a00;"></div>
-    </div>
-    <div class="field-count" style="color:#ff7a00;">6.956</div>
+    <div class="field-name">Sin empresa</div>
+    <div class="bar-bg"><div class="bar-fill" style="width:77.1%;background:var(--brand);"></div></div>
+    <div class="field-num" style="color:var(--brand)">6.956</div>
     <div class="field-pct">77,1%</div>
   </div>
   <div class="field-row">
-    <div class="field-label">Sin cargo</div>
-    <div class="field-bar-bg">
-      <div class="field-bar-fill" style="width:39.2%; background:#a855f7;"></div>
-    </div>
-    <div class="field-count" style="color:#a855f7;">3.536</div>
+    <div class="field-name">Sin cargo</div>
+    <div class="bar-bg"><div class="bar-fill" style="width:39.2%;background:var(--purple);"></div></div>
+    <div class="field-num" style="color:var(--purple)">3.536</div>
     <div class="field-pct">39,2%</div>
   </div>
-  <div class="field-row">
-    <div class="field-label">Sin email</div>
-    <div class="field-bar-bg">
-      <div class="field-bar-fill" style="width:2.8%; background:#4e8ef7;"></div>
-    </div>
-    <div class="field-count" style="color:#4e8ef7;">254</div>
+  <div class="field-row" style="margin-bottom:0;">
+    <div class="field-name">Sin email</div>
+    <div class="bar-bg"><div class="bar-fill" style="width:2.8%;background:var(--blue);"></div></div>
+    <div class="field-num" style="color:var(--blue)">254</div>
     <div class="field-pct">2,8%</div>
   </div>
 </div>
 
-<!-- TABLA MOTIVOS DESCARTE -->
-<div class="table-card">
-  <div class="section-title"><span>Estado / Clasificación</span> de contactos</div>
+<!-- STATUS TABLE -->
+<div class="section-label">Estado de contactos (lead status)</div>
+<div class="card table-full">
   <table>
     <thead>
       <tr>
-        <th>Estado (hs_lead_status)</th>
+        <th>Estado</th>
         <th>Contactos</th>
         <th>% sobre total</th>
         <th>Distribución</th>
@@ -393,62 +455,62 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="status-pill pill-red">UNQUALIFIED</span></td>
+        <td><span class="pill" style="background:rgba(248,113,113,.15);color:var(--red);">UNQUALIFIED · Descartado</span></td>
         <td><strong>5.037</strong></td>
-        <td>55,8%</td>
+        <td style="color:var(--red)">55,8 %</td>
         <td>
-          <div class="bar-mini-bg">
-            <div class="bar-mini-fill" style="width:100%; background:#ff4d6d;"></div>
+          <div class="mini-bar-bg" style="width:140px;">
+            <div class="mini-bar-fill" style="width:100%;background:var(--red);"></div>
           </div>
         </td>
       </tr>
       <tr>
-        <td><span class="status-pill pill-blue">OPEN</span></td>
-        <td><strong>62</strong></td>
-        <td>0,7%</td>
-        <td>
-          <div class="bar-mini-bg">
-            <div class="bar-mini-fill" style="width:1.2%; background:#4e8ef7;"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><span class="status-pill pill-green">cliente</span></td>
-        <td><strong>38</strong></td>
-        <td>0,4%</td>
-        <td>
-          <div class="bar-mini-bg">
-            <div class="bar-mini-fill" style="width:0.75%; background:#00c8a0;"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><span class="status-pill pill-orange">ATTEMPTED_TO_CONTACT</span></td>
-        <td><strong>18</strong></td>
-        <td>0,2%</td>
-        <td>
-          <div class="bar-mini-bg">
-            <div class="bar-mini-fill" style="width:0.36%; background:#ff7a00;"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><span class="status-pill pill-purple">OPEN_DEAL</span></td>
-        <td><strong>12</strong></td>
-        <td>0,1%</td>
-        <td>
-          <div class="bar-mini-bg">
-            <div class="bar-mini-fill" style="width:0.24%; background:#a855f7;"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td><span class="status-pill" style="background:rgba(124,130,160,.15);color:#7c82a0;">Sin estado asignado</span></td>
+        <td><span class="pill" style="background:rgba(174,174,174,.12);color:var(--muted);">Sin estado asignado</span></td>
         <td><strong>3.470</strong></td>
-        <td>38,5%</td>
+        <td style="color:var(--muted)">38,5 %</td>
         <td>
-          <div class="bar-mini-bg">
-            <div class="bar-mini-fill" style="width:68.9%; background:#7c82a0;"></div>
+          <div class="mini-bar-bg" style="width:140px;">
+            <div class="mini-bar-fill" style="width:68.9%;background:var(--muted);"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="pill" style="background:rgba(96,165,250,.15);color:var(--blue);">OPEN · Abierto</span></td>
+        <td><strong>62</strong></td>
+        <td style="color:var(--blue)">0,7 %</td>
+        <td>
+          <div class="mini-bar-bg" style="width:140px;">
+            <div class="mini-bar-fill" style="width:1.2%;background:var(--blue);"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="pill" style="background:rgba(45,212,191,.13);color:var(--green);">cliente</span></td>
+        <td><strong>38</strong></td>
+        <td style="color:var(--green)">0,4 %</td>
+        <td>
+          <div class="mini-bar-bg" style="width:140px;">
+            <div class="mini-bar-fill" style="width:0.75%;background:var(--green);"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="pill" style="background:rgba(255,107,91,.13);color:var(--brand);">ATTEMPTED TO CONTACT</span></td>
+        <td><strong>18</strong></td>
+        <td style="color:var(--brand)">0,2 %</td>
+        <td>
+          <div class="mini-bar-bg" style="width:140px;">
+            <div class="mini-bar-fill" style="width:0.36%;background:var(--brand);"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="pill" style="background:rgba(167,139,250,.14);color:var(--purple);">OPEN DEAL</span></td>
+        <td><strong>12</strong></td>
+        <td style="color:var(--purple)">0,1 %</td>
+        <td>
+          <div class="mini-bar-bg" style="width:140px;">
+            <div class="mini-bar-fill" style="width:0.24%;background:var(--purple);"></div>
           </div>
         </td>
       </tr>
@@ -456,33 +518,44 @@
   </table>
 </div>
 
+<!-- FOOTER -->
 <footer>
-  Datos extraídos de HubSpot CRM · GuruSup Radar IA · 8 jun 2026
+  <div class="fl">GuruSup</div>
+  <div class="fr">CRM Intelligence · HubSpot · 8 jun 2026</div>
 </footer>
 
 <script>
-// LINE CHART
-const lineCtx = document.getElementById('lineChart').getContext('2d');
-new Chart(lineCtx, {
+const BRAND   = '#FF6B5B';
+const GREEN   = '#2DD4BF';
+const BLUE    = '#60A5FA';
+const AMBER   = '#FBBF24';
+const PURPLE  = '#A78BFA';
+const MUTED   = '#AEAEAE';
+const SURFACE = '#20232f';
+const BORDER  = 'rgba(37,40,54,.8)';
+
+const tooltip = {
+  backgroundColor: '#1A1D28',
+  borderColor: '#252836',
+  borderWidth: 1,
+  titleColor: '#F2F3F7',
+  bodyColor: '#AEAEAE',
+  padding: 10,
+  cornerRadius: 8,
+};
+
+/* ── BAR CHART ────────────────────────────────────── */
+new Chart(document.getElementById('barChart'), {
   type: 'bar',
   data: {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun*'],
-    datasets: [
-      {
-        label: 'Contactos creados',
-        data: [98, 110, 158, 506, 919, 240],
-        backgroundColor: [
-          'rgba(78,142,247,.7)',
-          'rgba(78,142,247,.7)',
-          'rgba(78,142,247,.7)',
-          'rgba(78,142,247,.7)',
-          'rgba(78,142,247,.7)',
-          'rgba(0,200,160,.85)',
-        ],
-        borderRadius: 6,
-        borderSkipped: false,
-      }
-    ]
+    datasets: [{
+      label: 'Contactos creados',
+      data: [98, 110, 158, 506, 919, 240],
+      backgroundColor: ['#FF6B5B99','#FF6B5B99','#FF6B5B99','#FF6B5B99','#FF6B5BCC','#2DD4BFcc'],
+      borderRadius: 7,
+      borderSkipped: false,
+    }]
   },
   options: {
     responsive: true,
@@ -490,92 +563,76 @@ new Chart(lineCtx, {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#1a1d27',
-        borderColor: '#2e3347',
-        borderWidth: 1,
-        titleColor: '#e8eaf0',
-        bodyColor: '#7c82a0',
-        callbacks: {
-          label: ctx => ` ${ctx.parsed.y.toLocaleString('es')} contactos`
-        }
+        ...tooltip,
+        callbacks: { label: c => ` ${c.parsed.y.toLocaleString('es')} contactos` }
       }
     },
     scales: {
       x: {
-        grid: { color: 'rgba(46,51,71,.5)' },
-        ticks: { color: '#7c82a0', font: { size: 12 } }
+        grid: { color: BORDER },
+        ticks: { color: MUTED, font: { size: 11, family: 'Helvetica, Arial, sans-serif' } }
       },
       y: {
-        grid: { color: 'rgba(46,51,71,.5)' },
-        ticks: {
-          color: '#7c82a0',
-          font: { size: 11 },
-          callback: v => v.toLocaleString('es')
-        }
+        grid: { color: BORDER },
+        ticks: { color: MUTED, font: { size: 11 }, callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v }
       }
     }
   }
 });
 
-// PIE CHART
-const pieCtx = document.getElementById('pieChart').getContext('2d');
-new Chart(pieCtx, {
+/* ── DONUT CHART ──────────────────────────────────── */
+new Chart(document.getElementById('donutChart'), {
   type: 'doughnut',
   data: {
     labels: ['Completos (4 campos)', 'Incompletos'],
     datasets: [{
       data: [581, 8441],
-      backgroundColor: ['#00c8a0', '#2e3347'],
-      borderColor: ['#00c8a0', '#3a3f56'],
+      backgroundColor: [PURPLE, SURFACE],
+      borderColor:     [PURPLE, '#2e3147'],
       borderWidth: 2,
-      hoverOffset: 8,
+      hoverOffset: 10,
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
-    cutout: '72%',
+    cutout: '74%',
     plugins: {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#7c82a0',
-          font: { size: 11 },
+          color: MUTED,
+          font: { size: 11, family: 'Helvetica, Arial, sans-serif' },
           padding: 16,
           usePointStyle: true,
           pointStyleWidth: 10,
         }
       },
       tooltip: {
-        backgroundColor: '#1a1d27',
-        borderColor: '#2e3347',
-        borderWidth: 1,
-        titleColor: '#e8eaf0',
-        bodyColor: '#7c82a0',
+        ...tooltip,
         callbacks: {
-          label: ctx => {
-            const pct = (ctx.parsed / 9022 * 100).toFixed(1);
-            return ` ${ctx.parsed.toLocaleString('es')} (${pct}%)`;
+          label: c => {
+            const pct = (c.parsed / 9022 * 100).toFixed(1);
+            return ` ${c.parsed.toLocaleString('es')} contactos (${pct}%)`;
           }
         }
       }
     }
   },
   plugins: [{
-    id: 'centerText',
+    id: 'center',
     afterDraw(chart) {
       const { ctx, chartArea: { top, bottom, left, right } } = chart;
-      const cx = (left + right) / 2;
-      const cy = (top + bottom) / 2;
+      const cx = (left + right) / 2, cy = (top + bottom) / 2 - 8;
       ctx.save();
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = 'bold 28px Segoe UI, system-ui, sans-serif';
-      ctx.fillStyle = '#00c8a0';
-      ctx.fillText('6,4%', cx, cy - 10);
-      ctx.font = '12px Segoe UI, system-ui, sans-serif';
-      ctx.fillStyle = '#7c82a0';
-      ctx.fillText('Completos', cx, cy + 16);
+      ctx.font = 'bold 26px Helvetica, Arial, sans-serif';
+      ctx.fillStyle = PURPLE;
+      ctx.fillText('6,4%', cx, cy);
+      ctx.font = '11px Helvetica, Arial, sans-serif';
+      ctx.fillStyle = MUTED;
+      ctx.fillText('Completos', cx, cy + 22);
       ctx.restore();
     }
   }]
