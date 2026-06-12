@@ -112,14 +112,6 @@
   .chip.cat-biz{background:var(--blue-soft);border-color:var(--blue-soft);color:var(--blue);font-weight:700}
   .chip.cat-int{background:var(--red-soft);border-color:var(--red-soft);color:var(--red);font-weight:700}
 
-  /* comparación segmentos */
-  .vs-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin-top:14px}
-  @media(max-width:560px){.vs-wrap{grid-template-columns:1fr}.vs-wrap .vs{display:none}}
-  .vs-card{border:1px solid var(--line);border-radius:10px;padding:16px 18px;background:var(--bg)}
-  .vs-card h5{font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-  .vs-card p{font-size:13px;color:var(--gray);margin:0}
-  .vs{display:flex;align-items:center;font-family:Georgia,serif;font-style:italic;font-size:20px;color:var(--gray-light)}
-
   /* calendario días */
   .days{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
   .day{flex:1;min-width:64px;text-align:center;border-radius:10px;padding:14px 6px 12px;border:1px solid var(--line);background:var(--bg);color:var(--gray-light)}
@@ -182,7 +174,7 @@
     #s1{page-break-before:avoid}
     section.alt{background:#fff}
     .sec-head,h2,h3,h4{page-break-after:avoid}
-    .principle,.card,.takeaway,.note-box,.hero-card,.vs-wrap,.slots,.days,.signal,.pyramid,.qs3,.hs,.example{page-break-inside:avoid}
+    .principle,.card,.takeaway,.note-box,.hero-card,.slots,.days,.signal,.pyramid,.qs3,.hs,.example{page-break-inside:avoid}
     footer{border-radius:16px;overflow:hidden}
   }
 </style>
@@ -231,22 +223,11 @@
     <div class="principle">
       <div class="ph"><span class="n">1</span><h3>Compara siempre segmentos equivalentes</h3></div>
       <div class="pb">
-        <p>Yo tendría muy en cuenta que los <strong>clientes</strong> suelen tener tasas de apertura y clic superiores a las de <strong>leads</strong> o contactos en otras fases del ciclo de vida: conocen GuruSup y tienen un interés real en el producto.</p>
-        <div class="vs-wrap">
-          <div class="vs-card" style="border-top:3px solid var(--green)">
-            <h5 style="color:var(--green)">🤝 Clientes</h5>
-            <p>Conocen el producto → aperturas y clics naturalmente más altos.</p>
-          </div>
-          <div class="vs">vs</div>
-          <div class="vs-card" style="border-top:3px solid var(--blue)">
-            <h5 style="color:var(--blue)">✉️ Leads / otras fases</h5>
-            <p>Menor familiaridad → métricas más bajas, sin que el contenido sea peor.</p>
-          </div>
-        </div>
-        <div class="outcome ok"><span class="sign">✔</span><span>Compara resultados <strong>entre segmentos similares</strong>: clientes con clientes, leads con leads.</span></div>
-        <div class="outcome ko"><span class="sign">✖</span><span>Evita las <strong>métricas agregadas</strong>: mezclan audiencias distintas y sesgan las conclusiones.</span></div>
-        <p style="margin-top:14px">Por eso es tan importante la <strong>clasificación de la etapa de ciclo de vida</strong> de cada contacto: tener bien identificado quién es realmente cliente, y que no se haya colado en esa lista de forma confusa otro tipo de contacto.</p>
-        <div class="hs"><b>⚙️ Cómo hacerlo en HubSpot</b>En el informe de cada envío, fíjate en la <strong>lista de destinatarios</strong> utilizada y compara solo envíos hechos a la misma lista (o a listas de la misma etapa de ciclo de vida).<span class="path">📍 <code>Marketing → Correo electrónico → [tu envío] → Destinatarios</code></span></div>
+        <p>Tus envíos van a <strong>clientes</strong>, así que la regla es sencilla: <strong>compara siempre clientes con clientes</strong>. Por dos motivos:</p>
+        <div class="outcome ok"><span class="sign">1</span><span><strong>Datos sin sesgo.</strong> Si en la lista se cuela algún contacto que no es cliente, las métricas se distorsionan y las conclusiones dejan de ser fiables. Por eso es clave que la <strong>etapa de ciclo de vida</strong> esté bien clasificada en cada contacto.</span></div>
+        <div class="outcome ok"><span class="sign">2</span><span><strong>Engagement natural más alto.</strong> Los clientes ya conocen y usan el producto, y tienen relación con nosotros: sus tasas de apertura e interacción son naturalmente mejores.</span></div>
+        <p style="margin-top:14px">Así podrás tomar decisiones con la tranquilidad de que la base a la que envías es <strong>la que tú has cualificado</strong>.</p>
+        <div class="hs"><b>⚙️ Cómo hacerlo en HubSpot</b>Lo ideal es gestionarlo desde HubSpot con <strong>una única lista de Clientes</strong> que todos identifiquemos — la del punto 2 — para que esté todo unificado.<span class="path">📍 <code>CRM → Listas → [lista de Clientes]</code></span></div>
       </div>
     </div>
 
@@ -412,7 +393,7 @@
     <div class="sec-head"><span class="sec-num">04</span><h2>Las 10 recomendaciones, de un vistazo</h2></div>
     <p class="sec-lead">El chuletario para tener a mano antes de cada envío y cada análisis.</p>
     <div class="grid-2">
-      <div class="card"><span class="tag coral">01 · Datos</span><p style="font-size:14.5px;color:var(--gray)"><strong>Segmentos equivalentes:</strong> clientes con clientes, leads con leads. Nada de métricas agregadas.</p></div>
+      <div class="card"><span class="tag coral">01 · Datos</span><p style="font-size:14.5px;color:var(--gray)"><strong>Segmentos equivalentes:</strong> clientes con clientes, con la etapa de ciclo de vida bien clasificada.</p></div>
       <div class="card"><span class="tag coral">02 · Datos</span><p style="font-size:14.5px;color:var(--gray)"><strong>Valida la segmentación:</strong> lista dinámica por etapa Cliente, revisada periódicamente.</p></div>
       <div class="card"><span class="tag coral">03 · Datos</span><p style="font-size:14.5px;color:var(--gray)"><strong>Tendencias, no campañas aisladas:</strong> patrones de asuntos, contenidos y temáticas en el tiempo.</p></div>
       <div class="card"><span class="tag coral">04 · Datos</span><p style="font-size:14.5px;color:var(--gray)"><strong>Categorías internas:</strong> producto, IA, operaciones, CX, negocio, integraciones… para saber qué funciona.</p></div>
