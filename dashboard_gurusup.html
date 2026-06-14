@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GuruSup · Radar IA — Dashboards Comerciales</title>
+<style>
+  :root {
+    --bg:       #0d0d1a;
+    --surface:  #13132a;
+    --card:     #1a1a38;
+    --border:   #2a2a55;
+    --primary:  #7c3aed;
+    --accent:   #a78bfa;
+    --green:    #10b981;
+    --amber:    #f59e0b;
+    --red:      #ef4444;
+    --blue:     #3b82f6;
+    --text:     #f1f5f9;
+    --muted:    #94a3b8;
+    --pill-bg:  #2d1b69;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 0 0 60px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #1a0a3d 0%, #0d0d1a 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 48px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .logo-mark {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--primary), #a855f7);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 900; color: #fff;
+    letter-spacing: -1px;
+    box-shadow: 0 4px 24px rgba(124,58,237,0.4);
+  }
+  .header-text h1 { font-size: 22px; font-weight: 700; letter-spacing: -.3px; }
+  .header-text p  { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge {
+    margin-left: auto;
+    background: var(--pill-bg);
+    border: 1px solid var(--primary);
+    color: var(--accent);
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+
+  /* ── LAYOUT ── */
+  main { padding: 40px 48px; max-width: 1400px; margin: 0 auto; }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin: 48px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title:first-of-type { margin-top: 0; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+  }
+  .card.accent-green::before { background: linear-gradient(90deg, var(--green), transparent); }
+  .card.accent-amber::before { background: linear-gradient(90deg, var(--amber), transparent); }
+  .card.accent-red::before   { background: linear-gradient(90deg, var(--red), transparent); }
+  .card.accent-blue::before  { background: linear-gradient(90deg, var(--blue), transparent); }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-size: 14px; }
+
+  /* ── KPI ── */
+  .kpi { padding: 20px 24px 18px; }
+  .kpi .number {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .kpi .label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .kpi .delta {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-top: 8px;
+  }
+  .delta-up   { background: rgba(16,185,129,.15); color: var(--green); }
+  .delta-down { background: rgba(239,68,68,.15);  color: var(--red); }
+  .delta-warn { background: rgba(245,158,11,.15); color: var(--amber); }
+
+  /* ── INSIGHT BAR ── */
+  .insight {
+    background: rgba(124,58,237,0.08);
+    border-left: 3px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* ── BAR CHART ── */
+  .bar-list { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row  { display: flex; align-items: center; gap: 10px; }
+  .bar-label { font-size: 12px; color: var(--muted); width: 160px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-label.sm { width: 120px; }
+  .bar-track { flex: 1; background: var(--surface); border-radius: 999px; height: 8px; overflow: hidden; }
+  .bar-fill  { height: 100%; border-radius: 999px; transition: width .3s; }
+  .bar-fill.primary { background: linear-gradient(90deg, var(--primary), #a855f7); }
+  .bar-fill.green   { background: linear-gradient(90deg, var(--green), #34d399); }
+  .bar-fill.amber   { background: linear-gradient(90deg, var(--amber), #fcd34d); }
+  .bar-fill.blue    { background: linear-gradient(90deg, var(--blue), #60a5fa); }
+  .bar-fill.red     { background: linear-gradient(90deg, var(--red), #f87171); }
+  .bar-value { font-size: 12px; font-weight: 700; color: var(--text); width: 48px; text-align: right; flex-shrink: 0; }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { color: var(--muted); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 0 10px 10px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+  td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(124,58,237,0.04); }
+  .td-right { text-align: right; }
+  .td-mono  { font-family: monospace; letter-spacing: -.3px; }
+
+  /* ── STATUS PILL ── */
+  .pill {
+    display: inline-block;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .5px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .pill-green  { background: rgba(16,185,129,.15); color: var(--green); }
+  .pill-amber  { background: rgba(245,158,11,.15); color: var(--amber); }
+  .pill-red    { background: rgba(239,68,68,.15);  color: var(--red); }
+  .pill-purple { background: rgba(124,58,237,.2);  color: var(--accent); }
+  .pill-blue   { background: rgba(59,130,246,.15); color: var(--blue); }
+  .pill-grey   { background: rgba(148,163,184,.1); color: var(--muted); }
+
+  /* ── FUNNEL ── */
+  .funnel { display: flex; flex-direction: column; gap: 8px; }
+  .funnel-step {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--border);
+    position: relative;
+  }
+  .funnel-step.active  { border-left-color: var(--primary); }
+  .funnel-step.won     { border-left-color: var(--green); }
+  .funnel-step.at-risk { border-left-color: var(--amber); }
+  .funnel-num { font-size: 22px; font-weight: 800; color: var(--text); min-width: 36px; }
+  .funnel-info { flex: 1; }
+  .funnel-name { font-size: 13px; font-weight: 600; }
+  .funnel-sub  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .funnel-val  { font-size: 14px; font-weight: 700; color: var(--accent); }
+
+  /* ── MONTH TREND ── */
+  .trend-grid {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    gap: 4px;
+    align-items: end;
+    height: 100px;
+  }
+  .trend-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .trend-bar {
+    width: 100%;
+    background: linear-gradient(180deg, var(--primary), #4c1d95);
+    border-radius: 4px 4px 0 0;
+    min-height: 4px;
+    transition: height .3s;
+  }
+  .trend-bar.peak { background: linear-gradient(180deg, #a855f7, var(--primary)); box-shadow: 0 0 12px rgba(168,85,247,0.4); }
+  .trend-label { font-size: 9px; color: var(--muted); writing-mode: vertical-rl; transform: rotate(180deg); }
+  .trend-val   { font-size: 9px; color: var(--accent); font-weight: 700; }
+
+  /* ── DONUT-LIKE SEGMENT ── */
+  .segments { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .seg-row { display: flex; align-items: center; gap: 10px; }
+  .seg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .seg-name { font-size: 12px; color: var(--text); flex: 1; }
+  .seg-pct { font-size: 12px; font-weight: 700; color: var(--text); margin-right: 4px; }
+  .seg-n   { font-size: 11px; color: var(--muted); }
+
+  /* ── DEAL ROW ── */
+  .deal-list { display: flex; flex-direction: column; gap: 6px; }
+  .deal-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: var(--surface);
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .deal-name { flex: 1; font-weight: 600; color: var(--text); }
+  .deal-date { color: var(--muted); font-size: 11px; }
+  .deal-src  { color: var(--accent); font-size: 10px; font-weight: 600; text-transform: uppercase; }
+  .deal-amt  { font-weight: 700; color: var(--green); font-size: 13px; min-width: 60px; text-align: right; }
+
+  @media(max-width:1100px) {
+    main { padding: 24px 20px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .col-span-2, .col-span-3 { grid-column: span 1; }
+    header { padding: 20px 24px; }
+    .trend-label { font-size: 7px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-mark">GS</div>
+  <div class="header-text">
+    <h1>GuruSup · Radar IA</h1>
+    <p>Dashboards Comerciales — Datos en tiempo real · Junio 2026</p>
+  </div>
+  <span class="badge">🟢 Live HubSpot</span>
+</header>
+
+<main>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 1 · EVOLUCIÓN DE CONTACTOS
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">01 · Evolución de Contactos</p>
+
+  <div class="grid-4">
+    <div class="card kpi">
+      <div class="card-title"><span class="icon">👥</span> Total Contactos</div>
+      <div class="number">9.120</div>
+      <div class="label">Base de datos activa</div>
+      <span class="delta delta-up">↑ Base creciendo</span>
+    </div>
+    <div class="card kpi accent-green">
+      <div class="card-title"><span class="icon">📈</span> Mes pico</div>
+      <div class="number">63</div>
+      <div class="label">Deals creados · Mar 2026</div>
+      <span class="delta delta-up">↑ Máximo histórico</span>
+    </div>
+    <div class="card kpi accent-amber">
+      <div class="card-title"><span class="icon">📅</span> Junio 2026</div>
+      <div class="number">37</div>
+      <div class="label">Deals en curso este mes</div>
+      <span class="delta delta-up">↑ Mes activo</span>
+    </div>
+    <div class="card kpi accent-blue">
+      <div class="card-title"><span class="icon">💶</span> Valor Jun 2025</div>
+      <div class="number">€13.4k</div>
+      <div class="label">Mes de mayor ticket medio</div>
+      <span class="delta delta-up">↑ Mejor ratio</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="icon">📊</span> Deals creados por mes · Mar 2025 – Jun 2026</div>
+    <div class="trend-grid">
+      <!-- bar heights proporcionales al máximo (63) -->
+      <div class="trend-col"><div class="trend-bar" style="height:14%"></div><div class="trend-val">9</div><div class="trend-label">Mar25</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:6%"></div><div class="trend-val">4</div><div class="trend-label">Abr</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:8%"></div><div class="trend-val">5</div><div class="trend-label">May</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:5%"></div><div class="trend-val">3</div><div class="trend-label">Jun</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:19%"></div><div class="trend-val">12</div><div class="trend-label">Jul</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:5%"></div><div class="trend-val">3</div><div class="trend-label">Ago</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:13%"></div><div class="trend-val">8</div><div class="trend-label">Sep</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:52%"></div><div class="trend-val">33</div><div class="trend-label">Oct</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:17%"></div><div class="trend-val">11</div><div class="trend-label">Nov</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:21%"></div><div class="trend-val">13</div><div class="trend-label">Dic</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:30%"></div><div class="trend-val">19</div><div class="trend-label">Ene26</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:10%"></div><div class="trend-val">6</div><div class="trend-label">Feb</div></div>
+      <div class="trend-col"><div class="trend-bar peak" style="height:100%"></div><div class="trend-val" style="color:#fff">63</div><div class="trend-label">Mar</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:16%"></div><div class="trend-val">10</div><div class="trend-label">Abr</div></div>
+      <div class="trend-col"><div class="trend-bar" style="height:59%"></div><div class="trend-val">37</div><div class="trend-label">Jun</div></div>
+    </div>
+    <div class="insight">Marzo 2026 marcó el pico de actividad con 63 deals y €18.850 generados. Junio 2026 ya acumula 37 deals a mitad de mes — si mantiene el ritmo, superará octubre 2025.</div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 2 · CANALES CON ATRIBUCIÓN DE DEALS
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">02 · Canales y Fuentes con Atribución de Deals</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">🎯</span> Fuente de origen · Contactos (muestra 200)</div>
+      <div class="bar-list">
+        <div class="bar-row">
+          <span class="bar-label">🤝 Offline / Red comercial</span>
+          <div class="bar-track"><div class="bar-fill primary" style="width:53%"></div></div>
+          <span class="bar-value">53%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔗 Tráfico directo</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:22%"></div></div>
+          <span class="bar-value">22%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔍 Orgánico (SEO)</span>
+          <div class="bar-track"><div class="bar-fill green" style="width:13.5%"></div></div>
+          <span class="bar-value">13.5%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">💰 Búsqueda de pago (SEM)</span>
+          <div class="bar-track"><div class="bar-fill amber" style="width:7.5%"></div></div>
+          <span class="bar-value">7.5%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🤖 AI Referrals</span>
+          <div class="bar-track"><div class="bar-fill" style="width:2%;background:linear-gradient(90deg,#a855f7,#c084fc)"></div></div>
+          <span class="bar-value">2%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">📣 Otras campañas</span>
+          <div class="bar-track"><div class="bar-fill" style="width:1%;background:#334155"></div></div>
+          <span class="bar-value">1%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">📱 Social (orgánico + paid)</span>
+          <div class="bar-track"><div class="bar-fill red" style="width:1%"></div></div>
+          <span class="bar-value">1%</span>
+        </div>
+      </div>
+      <div class="insight">El 53% viene del canal offline (red comercial y referidos). El SEO está funcionando pero Social y Paid tienen margen enorme de mejora. Los AI Referrals ya aportan tráfico cualificado.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">💼</span> Atribución de Deals por Canal · Pipeline default (Consultoría)</div>
+      <div class="bar-list">
+        <div class="bar-row">
+          <span class="bar-label">🤝 Offline</span>
+          <div class="bar-track"><div class="bar-fill primary" style="width:70%"></div></div>
+          <span class="bar-value">141</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔗 Directo</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:11%"></div></div>
+          <span class="bar-value">22</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔍 Orgánico</span>
+          <div class="bar-track"><div class="bar-fill green" style="width:10.5%"></div></div>
+          <span class="bar-value">21</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">📱 Social Media</span>
+          <div class="bar-track"><div class="bar-fill" style="width:1%;background:#6366f1"></div></div>
+          <span class="bar-value">2</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔄 Referidos</span>
+          <div class="bar-track"><div class="bar-fill amber" style="width:0.5%"></div></div>
+          <span class="bar-value">1</span>
+        </div>
+      </div>
+      <br>
+      <div class="card-title"><span class="icon">🌱</span> Atribución de Deals · Pipeline Freemium</div>
+      <div class="bar-list">
+        <div class="bar-row">
+          <span class="bar-label">🤝 Offline</span>
+          <div class="bar-track"><div class="bar-fill primary" style="width:75%"></div></div>
+          <span class="bar-value">31</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔗 Directo</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:7.3%"></div></div>
+          <span class="bar-value">3</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔍 Orgánico</span>
+          <div class="bar-track"><div class="bar-fill green" style="width:7.3%"></div></div>
+          <span class="bar-value">3</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">💰 SEM / Paid Search</span>
+          <div class="bar-track"><div class="bar-fill amber" style="width:2.4%"></div></div>
+          <span class="bar-value">1</span>
+        </div>
+      </div>
+      <div class="insight">El canal offline domina en ambos pipelines. El SEO tiene una conversión a deal similar al directo, lo que indica buena calidad de tráfico orgánico. Escalar Paid potenciaría el freemium.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="icon">📋</span> Deals recientes destacados con canal de origen</div>
+    <div class="deal-list">
+      <div class="deal-row">
+        <span class="deal-name">💼 Grupo Asesban</span>
+        <span class="deal-date">Jun 2026</span>
+        <span class="deal-src">🔗 Directo</span>
+        <span class="pill pill-amber">En proceso</span>
+        <span class="deal-amt">—</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">💼 Redexis</span>
+        <span class="deal-date">May 2026</span>
+        <span class="deal-src">🤝 Offline</span>
+        <span class="pill pill-purple">Pres. Agendada</span>
+        <span class="deal-amt">€5.000</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">🌱 Wild Audience</span>
+        <span class="deal-date">May 2026</span>
+        <span class="deal-src">🔗 Directo</span>
+        <span class="pill pill-blue">Freemium</span>
+        <span class="deal-amt">€750</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">🌱 Conselleria Sanidad GVA</span>
+        <span class="deal-date">May 2026</span>
+        <span class="deal-src">🔍 Orgánico</span>
+        <span class="pill pill-blue">Freemium</span>
+        <span class="deal-amt">—</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">🌱 Ciclogreen</span>
+        <span class="deal-date">Abr 2026</span>
+        <span class="deal-src">💰 SEM</span>
+        <span class="pill pill-blue">Freemium</span>
+        <span class="deal-amt">€750</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">🌱 Editorial AltamarMar</span>
+        <span class="deal-date">Mar 2026</span>
+        <span class="deal-src">📱 Social</span>
+        <span class="pill pill-blue">Freemium</span>
+        <span class="deal-amt">€750</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">✅ TBF ABOGADOS</span>
+        <span class="deal-date">Jun 2026</span>
+        <span class="deal-src">🤝 Offline</span>
+        <span class="pill pill-green">Cerrado Ganado</span>
+        <span class="deal-amt">€750</span>
+      </div>
+      <div class="deal-row">
+        <span class="deal-name">✅ VDS</span>
+        <span class="deal-date">Abr 2026</span>
+        <span class="deal-src">🤝 Offline</span>
+        <span class="pill pill-green">Cerrado Ganado</span>
+        <span class="deal-amt">€5.000</span>
+      </div>
+    </div>
+    <div class="insight">El canal offline genera los deals de mayor valor (VDS €5k, Redexis €5k). El SEO trae oportunidades institucionales como Conselleria Sanidad GVA. Social ya cerró su primer deal (AltamarMar).</div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 3 · SQL CONSULTORÍA
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">03 · SQL Consultoría — Pipeline Principal</p>
+
+  <div class="grid-3">
+    <div class="card kpi">
+      <div class="card-title"><span class="icon">🎯</span> Total deals Consultoría</div>
+      <div class="number">208</div>
+      <div class="label">Pipeline default acumulado</div>
+    </div>
+    <div class="card kpi accent-amber">
+      <div class="card-title"><span class="icon">⚡</span> SQL Consultoría activos</div>
+      <div class="number">3</div>
+      <div class="label">En etapa calificada (SQL)</div>
+      <span class="delta delta-warn">↗ Flywire + 2 más</span>
+    </div>
+    <div class="card kpi accent-green">
+      <div class="card-title"><span class="icon">💶</span> Pipeline Consultoría</div>
+      <div class="number">€41.5k</div>
+      <div class="label">Valor total en pipeline abierto</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="icon">🔢</span> Funnel de Consultoría por etapa</div>
+    <div class="funnel">
+      <div class="funnel-step active">
+        <div class="funnel-num">145</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Nuevo Prospecto</div>
+          <div class="funnel-sub">Leads en fase inicial, sin cualificar</div>
+        </div>
+        <div class="funnel-val">€16.175</div>
+      </div>
+      <div class="funnel-step active">
+        <div class="funnel-num">35</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Contactado / En proceso</div>
+          <div class="funnel-sub">Grupo Asesban, Weekendesk, BlueSpace, Wingo…</div>
+        </div>
+        <div class="funnel-val">€8.000</div>
+      </div>
+      <div class="funnel-step active">
+        <div class="funnel-num">13</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Presentación Agendada</div>
+          <div class="funnel-sub">Redexis, Grupo Alsea, Davante, Gam Rentals, Plenergy…</div>
+        </div>
+        <div class="funnel-val">€16.400</div>
+      </div>
+      <div class="funnel-step at-risk">
+        <div class="funnel-num">4</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Propuesta Enviada</div>
+          <div class="funnel-sub">Scoolinary, Talent Class, Talleres La Unión…</div>
+        </div>
+        <div class="funnel-val">€150</div>
+      </div>
+      <div class="funnel-step won" style="border-left-color:var(--blue)">
+        <div class="funnel-num">3</div>
+        <div class="funnel-info">
+          <div class="funnel-name">SQL Consultoría</div>
+          <div class="funnel-sub">Flywire, danielamieva@eboca.com, ZZ TEST</div>
+        </div>
+        <div class="funnel-val">€750</div>
+      </div>
+    </div>
+    <div class="insight">13 deals en presentación suman €16.400 — la etapa de mayor valor ahora mismo. Propuesta enviada tiene muy poco valor (€150): falta seguimiento activo en esa etapa.</div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 4 · FREEMIUMS TOTALES + ESTADO
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">04 · Freemiums Totales y Estado</p>
+
+  <div class="grid-4">
+    <div class="card kpi">
+      <div class="card-title"><span class="icon">🌱</span> Freemiums totales</div>
+      <div class="number">41</div>
+      <div class="label">Deals en pipeline Freemium</div>
+    </div>
+    <div class="card kpi accent-green">
+      <div class="card-title"><span class="icon">✅</span> Freemiums ganados</div>
+      <div class="number">3</div>
+      <div class="label">TBF Abogados · VDS · PropHero</div>
+      <span class="delta delta-up">€6.500 generados</span>
+    </div>
+    <div class="card kpi accent-amber">
+      <div class="card-title"><span class="icon">⚡</span> Nuevos sin trabajar</div>
+      <div class="number">2</div>
+      <div class="label">Planeta Huerto · Avantio</div>
+      <span class="delta delta-warn">↗ Acción inmediata</span>
+    </div>
+    <div class="card kpi accent-red">
+      <div class="card-title"><span class="icon">❌</span> Freemiums perdidos</div>
+      <div class="number">3</div>
+      <div class="label">Billin · Abastores · Carback</div>
+      <span class="delta delta-down">€1.375 perdidos</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="icon">📊</span> Estado del pipeline Freemium · 41 deals · €51.625 en juego</div>
+    <div class="funnel">
+      <div class="funnel-step" style="border-left-color:#6366f1">
+        <div class="funnel-num">2</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Nuevo Freemium (sin contactar)</div>
+          <div class="funnel-sub">Planeta Huerto · Avantio — acaban de registrarse</div>
+        </div>
+        <span class="pill pill-purple">Urgente</span>
+      </div>
+      <div class="funnel-step active">
+        <div class="funnel-num">3</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Activado</div>
+          <div class="funnel-sub">The Balance Phone · WASHROCKS · Aston Rentals</div>
+        </div>
+        <div class="funnel-val">€825</div>
+      </div>
+      <div class="funnel-step active">
+        <div class="funnel-num">1</div>
+        <div class="funnel-info">
+          <div class="funnel-name">En uso activo</div>
+          <div class="funnel-sub">Frekuent</div>
+        </div>
+        <div class="funnel-val">€1.000</div>
+      </div>
+      <div class="funnel-step active" style="border-left-color:#3b82f6">
+        <div class="funnel-num">5</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Contactado (outreach activo)</div>
+          <div class="funnel-sub">Wild Audience · Citring · Zulubox · Bike Ocasión…</div>
+        </div>
+        <div class="funnel-val">€3.000</div>
+      </div>
+      <div class="funnel-step active">
+        <div class="funnel-num">5</div>
+        <div class="funnel-info">
+          <div class="funnel-name">En proceso</div>
+          <div class="funnel-sub">Ciclogreen · Envalia · Sincrolab · Reveni Legal…</div>
+        </div>
+        <div class="funnel-val">€3.000</div>
+      </div>
+      <div class="funnel-step at-risk">
+        <div class="funnel-num">2</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Follow-up pendiente</div>
+          <div class="funnel-sub">TenVinilo · Montesierra</div>
+        </div>
+        <div class="funnel-val">€1.125</div>
+      </div>
+      <div class="funnel-step active">
+        <div class="funnel-num">5</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Demo agendada</div>
+          <div class="funnel-sub">ARPÍAS · OffUgo · GuruWalk · FeelTheCity · Reveni</div>
+        </div>
+        <div class="funnel-val">€6.050</div>
+      </div>
+      <div class="funnel-step active" style="border-left-color:#f59e0b">
+        <div class="funnel-num">6</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Propuesta enviada</div>
+          <div class="funnel-sub">Waynabox (€13.2k) · MundoMarino · Marinalia · Kämpe · Fiero · Fagor</div>
+        </div>
+        <div class="funnel-val">€15.200</div>
+      </div>
+      <div class="funnel-step" style="border-left-color:#8b5cf6">
+        <div class="funnel-num">1</div>
+        <div class="funnel-info">
+          <div class="funnel-name">Negociación</div>
+          <div class="funnel-sub">InbestMe</div>
+        </div>
+        <div class="funnel-val">€300</div>
+      </div>
+      <div class="funnel-step won">
+        <div class="funnel-num">3</div>
+        <div class="funnel-info">
+          <div class="funnel-name">✅ Cerrado Ganado</div>
+          <div class="funnel-sub">TBF ABOGADOS · VDS · PropHero</div>
+        </div>
+        <div class="funnel-val">€6.500</div>
+      </div>
+      <div class="funnel-step" style="border-left-color:var(--red)">
+        <div class="funnel-num">3</div>
+        <div class="funnel-info">
+          <div class="funnel-name">❌ Perdido / Churn</div>
+          <div class="funnel-sub">Billin · Abastores · Carback</div>
+        </div>
+        <div class="funnel-val">€1.375</div>
+      </div>
+    </div>
+    <div class="insight">Waynabox solo tiene €13.200 en propuesta enviada — es la oportunidad más grande del freemium. TBF Abogados y VDS prueban que el modelo funciona: hay 3 cierres con ticket medio de €2.167.</div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 5 · SQL FREEMIUMS
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">05 · SQL Freemiums — Calificados para Venta</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title"><span class="icon">⚡</span> Los 5 SQL Freemium activos</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Entrada</th>
+            <th>Canal</th>
+            <th class="td-right">Valor</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cooltra</strong></td>
+            <td class="td-mono">Mar 2026</td>
+            <td><span class="pill pill-grey">Offline</span></td>
+            <td class="td-right td-mono" style="color:var(--green)">€10.000</td>
+            <td><span class="pill pill-purple">SQL</span></td>
+          </tr>
+          <tr>
+            <td><strong>GoTrendier</strong></td>
+            <td class="td-mono">Sep 2025</td>
+            <td><span class="pill pill-grey">Offline</span></td>
+            <td class="td-right td-mono" style="color:var(--green)">€2.000</td>
+            <td><span class="pill pill-purple">SQL</span></td>
+          </tr>
+          <tr>
+            <td><strong>Rever</strong></td>
+            <td class="td-mono">Nov 2025</td>
+            <td><span class="pill pill-grey">Offline</span></td>
+            <td class="td-right td-mono" style="color:var(--green)">€750</td>
+            <td><span class="pill pill-purple">SQL</span></td>
+          </tr>
+          <tr>
+            <td><strong>TeamSystem</strong></td>
+            <td class="td-mono">Oct 2025</td>
+            <td><span class="pill pill-grey">Offline</span></td>
+            <td class="td-right td-mono" style="color:var(--green)">€250</td>
+            <td><span class="pill pill-purple">SQL</span></td>
+          </tr>
+          <tr>
+            <td><strong>COCUNAT</strong></td>
+            <td class="td-mono">Oct 2025</td>
+            <td><span class="pill pill-grey">Offline</span></td>
+            <td class="td-right td-mono" style="color:var(--green)">€250</td>
+            <td><span class="pill pill-purple">SQL</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="insight">Cooltra concentra €10.000 — casi el 76% del valor SQL Freemium. Llevan meses en pipeline: son la prioridad comercial número uno de esta semana.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">📈</span> Métricas SQL Freemium</div>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--surface);border-radius:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">SQL activos</div>
+            <div style="font-size:28px;font-weight:800;color:var(--accent)">5</div>
+          </div>
+          <div style="font-size:32px">⚡</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--surface);border-radius:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Valor total SQL</div>
+            <div style="font-size:28px;font-weight:800;color:var(--green)">€13.250</div>
+          </div>
+          <div style="font-size:32px">💶</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--surface);border-radius:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Ticket medio SQL</div>
+            <div style="font-size:28px;font-weight:800;color:var(--amber)">€2.650</div>
+          </div>
+          <div style="font-size:32px">🎯</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--surface);border-radius:10px;">
+          <div>
+            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">% freemiums → SQL</div>
+            <div style="font-size:28px;font-weight:800;color:var(--primary)">12%</div>
+          </div>
+          <div style="font-size:32px">🔄</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 6 · PIPELINE DE VENTAS GLOBAL
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">06 · Pipeline de Ventas Global — Volumen y Estados</p>
+
+  <div class="grid-4">
+    <div class="card kpi">
+      <div class="card-title"><span class="icon">🔄</span> Deals abiertos</div>
+      <div class="number">89</div>
+      <div class="label">Pipeline activo total</div>
+    </div>
+    <div class="card kpi accent-green">
+      <div class="card-title"><span class="icon">💶</span> Valor pipeline</div>
+      <div class="number">~€53k</div>
+      <div class="label">Valor estimado en juego</div>
+    </div>
+    <div class="card kpi accent-amber">
+      <div class="card-title"><span class="icon">📅</span> Cierre previsto Jun</div>
+      <div class="number">12+</div>
+      <div class="label">Deals con fecha en junio 2026</div>
+    </div>
+    <div class="card kpi accent-red">
+      <div class="card-title"><span class="icon">⚠️</span> Fechas vencidas</div>
+      <div class="number">~20</div>
+      <div class="label">Deals con closedate pasado</div>
+      <span class="delta delta-down">↓ Requieren revisión</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="icon">💼</span> Deals de alto valor abiertos · Cierre previsto próximo</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Empresa</th>
+          <th>Pipeline</th>
+          <th>Etapa</th>
+          <th>Canal</th>
+          <th>Cierre previsto</th>
+          <th class="td-right">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Waynabox</strong></td>
+          <td><span class="pill pill-blue">Freemium</span></td>
+          <td>Propuesta</td>
+          <td>Offline</td>
+          <td class="td-mono">Jun 2025 ⚠️</td>
+          <td class="td-right td-mono" style="color:var(--green)">€13.200</td>
+        </tr>
+        <tr>
+          <td><strong>Cooltra</strong></td>
+          <td><span class="pill pill-blue">Freemium</span></td>
+          <td>SQL</td>
+          <td>Offline</td>
+          <td class="td-mono">Mar 2026 ⚠️</td>
+          <td class="td-right td-mono" style="color:var(--green)">€10.000</td>
+        </tr>
+        <tr>
+          <td><strong>Redexis</strong></td>
+          <td><span class="pill pill-purple">Consultoría</span></td>
+          <td>Pres. Agendada</td>
+          <td>Offline</td>
+          <td class="td-mono">May 2026 ⚠️</td>
+          <td class="td-right td-mono" style="color:var(--green)">€5.000</td>
+        </tr>
+        <tr>
+          <td><strong>Grupo Alsea</strong></td>
+          <td><span class="pill pill-purple">Consultoría</span></td>
+          <td>Pres. Agendada</td>
+          <td>Offline</td>
+          <td class="td-mono">Jun 2026</td>
+          <td class="td-right td-mono" style="color:var(--green)">€1.500</td>
+        </tr>
+        <tr>
+          <td><strong>Davante</strong></td>
+          <td><span class="pill pill-purple">Consultoría</span></td>
+          <td>Pres. Agendada</td>
+          <td>Offline</td>
+          <td class="td-mono">Jun 2026</td>
+          <td class="td-right td-mono" style="color:var(--green)">€2.000</td>
+        </tr>
+        <tr>
+          <td><strong>GoTrendier</strong></td>
+          <td><span class="pill pill-blue">Freemium</span></td>
+          <td>SQL</td>
+          <td>Offline</td>
+          <td class="td-mono">Sep 2025 ⚠️</td>
+          <td class="td-right td-mono" style="color:var(--green)">€2.000</td>
+        </tr>
+        <tr>
+          <td><strong>GuruWalk</strong></td>
+          <td><span class="pill pill-blue">Freemium</span></td>
+          <td>Demo agendada</td>
+          <td>Offline</td>
+          <td class="td-mono">Jul 2025 ⚠️</td>
+          <td class="td-right td-mono" style="color:var(--green)">€1.800</td>
+        </tr>
+        <tr>
+          <td><strong>Plenergy</strong></td>
+          <td><span class="pill pill-purple">Consultoría</span></td>
+          <td>Pres. Agendada</td>
+          <td>Offline</td>
+          <td class="td-mono">May 2026 ⚠️</td>
+          <td class="td-right td-mono" style="color:var(--green)">€3.000</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="insight">Los ⚠️ indican fechas de cierre vencidas: Waynabox, Cooltra, Redexis, Plenergy llevan semanas o meses sin actualizarse. Son €31.000 paralizados que necesitan acción esta semana.</div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       BLOQUE 7 · SEGUIMIENTO DE VENTAS
+  ═════════════════════════════════════════════ -->
+  <p class="section-title">07 · Seguimiento de Ventas — Actividad y Resultados</p>
+
+  <div class="grid-3">
+    <div class="card kpi accent-green">
+      <div class="card-title"><span class="icon">🏆</span> Deals ganados (total)</div>
+      <div class="number">5</div>
+      <div class="label">Cerrados won · valor €5.750</div>
+      <span class="delta delta-up">↑ Ticket medio €1.150</span>
+    </div>
+    <div class="card kpi accent-red">
+      <div class="card-title"><span class="icon">📉</span> Deals perdidos</div>
+      <div class="number">121</div>
+      <div class="label">Cerrados lost acumulados</div>
+      <span class="delta delta-down">↓ Tasa cierre 4%</span>
+    </div>
+    <div class="card kpi accent-amber">
+      <div class="card-title"><span class="icon">🗓️</span> Presentaciones Jun 2026</div>
+      <div class="number">13</div>
+      <div class="label">Deals en etapa presentación</div>
+      <span class="delta delta-up">↑ €16.400 en juego</span>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title"><span class="icon">📊</span> Revenue generado por mes (deals con importe)</div>
+      <div class="bar-list">
+        <div class="bar-row">
+          <span class="bar-label sm">Mar 2025</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:20%"></div></div>
+          <span class="bar-value">€3.7k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">Jun 2025</span>
+          <div class="bar-track"><div class="bar-fill green" style="width:71%"></div></div>
+          <span class="bar-value">€13.4k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">Jul 2025</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:26%"></div></div>
+          <span class="bar-value">€4.9k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">Nov 2025</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:20%"></div></div>
+          <span class="bar-value">€3.7k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">Ene 2026</span>
+          <div class="bar-track"><div class="bar-fill amber" style="width:17%"></div></div>
+          <span class="bar-value">€3.1k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">Mar 2026</span>
+          <div class="bar-track"><div class="bar-fill primary" style="width:100%"></div></div>
+          <span class="bar-value">€18.8k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">Abr 2026</span>
+          <div class="bar-track"><div class="bar-fill amber" style="width:38%"></div></div>
+          <span class="bar-value">€7.2k</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label sm">May 2026</span>
+          <div class="bar-track"><div class="bar-fill blue" style="width:16%"></div></div>
+          <span class="bar-value">€3.0k</span>
+        </div>
+      </div>
+      <div class="insight">Marzo 2026 fue el mejor mes histórico (€18.850). Junio 2025 tuvo el mejor ticket medio. El patrón muestra picos trimestrales: el equipo comercial tiene un ritmo de cierre con ciclos de 90 días.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">✅</span> Empresas cerradas ganadas · Detalle</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Pipeline</th>
+            <th>Canal</th>
+            <th class="td-right">Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TBF ABOGADOS</strong></td>
+            <td><span class="pill pill-blue">Freemium</span></td>
+            <td>Offline</td>
+            <td class="td-right td-mono" style="color:var(--green)">€750</td>
+          </tr>
+          <tr>
+            <td><strong>VDS</strong></td>
+            <td><span class="pill pill-blue">Freemium</span></td>
+            <td>Offline</td>
+            <td class="td-right td-mono" style="color:var(--green)">€5.000</td>
+          </tr>
+          <tr>
+            <td><strong>PropHero</strong></td>
+            <td><span class="pill pill-blue">Freemium</span></td>
+            <td>Offline</td>
+            <td class="td-right td-mono" style="color:var(--green)">€750</td>
+          </tr>
+          <tr>
+            <td><em style="color:var(--muted)">+ 2 deals won sin importe</em></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="td-right td-mono" style="color:var(--muted)">—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+      <div class="card-title"><span class="icon">⚠️</span> Ratio comercial</div>
+      <div class="bar-list">
+        <div class="bar-row">
+          <span class="bar-label">✅ Won</span>
+          <div class="bar-track"><div class="bar-fill green" style="width:4%"></div></div>
+          <span class="bar-value">4%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">❌ Lost</span>
+          <div class="bar-track"><div class="bar-fill red" style="width:96%"></div></div>
+          <span class="bar-value">96%</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">🔄 Pipeline abierto</span>
+          <div class="bar-track"><div class="bar-fill primary" style="width:35%"></div></div>
+          <span class="bar-value">89 deals</span>
+        </div>
+      </div>
+      <div class="insight">El 100% de los cierres ganados viene del canal offline. La tasa del 4% es baja pero el pipeline de €53k activo puede multiplicar los ingresos si se activan los deals vencidos.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer style="text-align:center;padding:24px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:40px;">
+  GuruSup · Radar IA — Generado automáticamente desde HubSpot CRM · 14 Jun 2026 · Datos en tiempo real
+</footer>
+
+</body>
+</html>
