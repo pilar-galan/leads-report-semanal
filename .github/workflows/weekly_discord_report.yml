@@ -2,7 +2,7 @@ name: Weekly Leads Report → Discord
 
 on:
   schedule:
-    - cron: '0 6 * * 1'   # Lunes 08:00 hora España (UTC+2 verano)
+    - cron: '45 6 * * 1'   # Lunes 08:45 hora España (UTC+2 verano)
   workflow_dispatch:        # También ejecutable manualmente
 
 jobs:
@@ -49,16 +49,16 @@ jobs:
                   "description": f"**Semana {week}**",
                   "color": 0xFF6B5B,
                   "fields": [
-                      {"name": "🔢 Leads totales",       "value": "**116** · ↓18% vs anterior", "inline": True},
-                      {"name": "✅ Ya gestionados",       "value": "**31** · 27% del total",     "inline": True},
-                      {"name": "🎯 Oportunidades activas","value": "**10** · €17,300 pipeline",  "inline": True},
-                      {"name": "🚀 Freemiums nuevos",     "value": "**3** · TBF · Planeta · Avantio", "inline": True},
-                      {"name": "🚨 Alertas sin revisar",  "value": "RENFE · PC Componentes",     "inline": True},
-                      {"name": "📈 Canal top",            "value": "SEM 60% conversión",         "inline": True},
+                      {"name": "🔢 Leads totales",        "value": "**116**",                         "inline": True},
+                      {"name": "✅ Ya gestionados",        "value": "**31** · 27% del total",          "inline": True},
+                      {"name": "🎯 Oportunidades activas", "value": "**10** · €17,300 en pipeline",    "inline": True},
+                      {"name": "🚀 Freemiums nuevos",      "value": "**3** · TBF · Planeta · Avantio", "inline": True},
+                      {"name": "🚨 Sin revisar",           "value": "RENFE · PC Componentes",          "inline": True},
+                      {"name": "📡 Canales",               "value": "SEM 60% · SEO 27% · Directo 31%", "inline": True},
                   ],
                   "footer": {"text": "GuruSup · Leads Report Semanal"},
               }],
-              "content": f"Ver informe completo → {report_url}"
+              "content": f"👉 **Ver informe completo →** {report_url}"
           }
 
           url = f"{webhook}?thread_id={thread_id}"
