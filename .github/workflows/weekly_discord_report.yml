@@ -20,51 +20,48 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install Pillow requests
-
-      - name: Get current week dates
-        id: dates
-        run: |
-          python3 -c "
-          from datetime import date, timedelta
-          today = date.today()
-          monday = today - timedelta(days=today.weekday())
-          last_monday = monday - timedelta(days=7)
-          print(f'WEEK_START={last_monday.strftime(\"%d %b\")}')
-          print(f'WEEK_END={monday.strftime(\"%d %b %Y\")}')
-          " >> $GITHUB_OUTPUT
+        run: pip install requests
 
       - name: Send to Discord thread
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           DISCORD_THREAD_ID: ${{ secrets.DISCORD_THREAD_ID }}
-          REPORT_URL: https://pilar-galan.github.io/gurusup-radar-ia/informe_leads_semanal.html
-          DASHBOARD_URL: https://pilar-galan.github.io/gurusup-radar-ia/dashboard_ejecutivo.html
+          REPORT_URL: https://pilar-galan.github.io/leads-report-semanal/informe_leads_semanal.html
+          DASHBOARD_URL: https://pilar-galan.github.io/leads-report-semanal/dashboard_ejecutivo.html
         run: |
           python3 << 'PYEOF'
           import os, requests, json
+          from datetime import date, timedelta
 
           webhook = os.environ['DISCORD_WEBHOOK_URL']
           thread_id = os.environ['DISCORD_THREAD_ID']
           report_url = os.environ['REPORT_URL']
           dashboard_url = os.environ['DASHBOARD_URL']
 
-          url = f"{webhook}?thread_id={thread_id}"
+          today = date.today()
+          monday = today - timedelta(days=today.weekday())
+          last_monday = monday - timedelta(days=7)
+          week = f"{last_monday.strftime('%d')}-{monday.strftime('%d %b %Y')}"
 
-          # 1. Enviar imagen KPI
-          with open('kpi_preview.png', 'rb') as f:
-              r = requests.post(url, files={'file': ('kpi_preview.png', f, 'image/png')},
-                                data={'payload_json': json.dumps({'content': ''})})
-          print("Image:", r.status_code)
-
-          # 2. Enviar mensaje con link
           message = {
-              "content": (
-                  "📊 **Seguimiento Semanal de Oportunidades · GuruSup**\n"
-                  f"🔗 Informe completo → {report_url}\n"
-                  f"🎯 Dashboard ejecutivo → {dashboard_url}"
-              )
+              "embeds": [{
+                  "title": "📊 Seguimiento Semanal de Oportunidades · GuruSup",
+                  "description": f"**Semana {week}**",
+                  "color": 0xFF6B5B,
+                  "fields": [
+                      {"name": "🔢 Leads totales",       "value": "**116** · ↓18% vs anterior", "inline": True},
+                      {"name": "✅ Ya gestionados",       "value": "**31** · 27% del total",     "inline": True},
+                      {"name": "🎯 Oportunidades activas","value": "**10** · €17,300 pipeline",  "inline": True},
+                      {"name": "🚀 Freemiums nuevos",     "value": "**3** · TBF · Planeta · Avantio", "inline": True},
+                      {"name": "🚨 Alertas sin revisar",  "value": "RENFE · PC Componentes",     "inline": True},
+                      {"name": "📈 Canal top",            "value": "SEM 60% conversión",         "inline": True},
+                  ],
+                  "footer": {"text": "GuruSup · Leads Report Semanal"},
+              }],
+              "content": f"Ver informe completo → {report_url}"
           }
-          r2 = requests.post(url, json=message)
-          print("Message:", r2.status_code)
+
+          url = f"{webhook}?thread_id={thread_id}"
+          r = requests.post(url, json=message)
+          print("Status:", r.status_code, r.text[:200])
           PYEOF
