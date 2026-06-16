@@ -35,7 +35,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── HEADER ── */
 .header {
   position: sticky; top: 0; z-index: 100;
   background: rgba(17,14,42,0.96);
@@ -63,7 +62,6 @@ body {
 .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* ── LAYOUT ── */
 .main { max-width: 1160px; margin: 0 auto; padding: 24px 20px 60px; }
 .section-label {
   font-size: 11px; font-weight: 700; letter-spacing: .1em;
@@ -72,7 +70,6 @@ body {
 }
 .section-label:first-child { margin-top: 0; }
 
-/* ══ FUNNEL HORIZONTAL ══ */
 .funnel { display: flex; align-items: stretch; gap: 0; }
 
 .f-arrow {
@@ -116,7 +113,6 @@ body {
 .fc-opp-total { font-size: 12px; color: var(--muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
 .fc-opp-total strong { color: var(--text-2); }
 
-/* SQL breakdown inside funnel card */
 .fc-sql-breakdown {
   margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
   display: flex; flex-direction: column; gap: 5px;
@@ -127,13 +123,10 @@ body {
 .fc-sql-num  { font-weight: 700; color: var(--text); }
 
 .f-c-default { --fc: var(--guru-500); --fv: var(--text); }
-.f-c-purple  { --fc: var(--guru-400); --fv: var(--guru-400); }
 .f-c-orange  { --fc: var(--orange);   --fv: var(--orange); }
 .f-c-green   { --fc: var(--green);    --fv: var(--green); }
-.f-c-blue    { --fc: var(--blue);     --fv: var(--blue); }
 .f-c-muted   { --fc: #3a3660;         --fv: var(--muted); }
 
-/* ── CARDS ── */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 12px; }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .card-title { font-size: 14px; font-weight: 700; color: var(--text); }
@@ -141,10 +134,8 @@ body {
 .badge-green  { background: rgba(16,185,129,.15); color: var(--green); border: 1px solid rgba(16,185,129,.3); }
 .badge-red    { background: rgba(239,68,68,.15);  color: var(--red);   border: 1px solid rgba(239,68,68,.3); }
 .badge-blue   { background: rgba(59,130,246,.15); color: var(--blue);  border: 1px solid rgba(59,130,246,.3); }
-.badge-purple { background: rgba(157,95,250,.15); color: var(--guru-400); border: 1px solid rgba(157,95,250,.3); }
 .badge-muted  { background: rgba(123,118,160,.12); color: var(--muted); border: 1px solid rgba(123,118,160,.25); }
 
-/* ── REVISION FLOW ── */
 .rev-flow { display: flex; flex-direction: column; gap: 0; }
 .rev-flow-header {
   display: flex; align-items: baseline; gap: 10px;
@@ -164,14 +155,12 @@ body {
 .rev-flow-name { font-size: 13px; font-weight: 600; }
 .rev-flow-desc { font-size: 11px; color: var(--muted); margin-top: 1px; }
 
-/* ── SQL MINI GRID ── */
 .sql-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .sql-cell { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
 .sql-num   { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
 .sql-label { font-size: 12px; font-weight: 600; }
 .sql-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-/* ── TABLE ── */
 .table { width: 100%; border-collapse: collapse; }
 .table th { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding: 0 12px 10px 0; text-align: left; border-bottom: 1px solid var(--border); }
 .table td { font-size: 13px; color: var(--text-2); padding: 10px 12px 10px 0; border-bottom: 1px solid rgba(46,42,90,.5); vertical-align: middle; }
@@ -179,13 +168,11 @@ body {
 .table td strong { color: var(--text); font-weight: 600; }
 .table tr.stage-divider td { background: rgba(255,255,255,.03); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--border); }
 
-/* ── PILLS ── */
 .pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
 .pill-demo   { background: rgba(16,185,129,.15); color: var(--green); }
 .pill-discov { background: rgba(124,58,237,.15); color: var(--guru-300); }
 .new-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: rgba(16,185,129,.2); color: var(--green); letter-spacing: .04em; text-transform: uppercase; }
 
-/* ── REASON BARS ── */
 .reason-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 .reason-row:last-child { margin-bottom: 0; }
 .reason-label { font-size: 13px; color: var(--text-2); min-width: 220px; flex-shrink: 0; }
@@ -193,7 +180,6 @@ body {
 .reason-bar { height: 6px; border-radius: 4px; }
 .reason-count { font-size: 13px; font-weight: 700; color: var(--text); min-width: 28px; text-align: right; }
 
-/* ── ALERT ── */
 .alert { border-radius: 8px; padding: 10px 14px; font-size: 12px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 8px; }
 .alert-green  { background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2);  color: #6ee7b7; }
 .alert-muted  { background: rgba(123,118,160,.06); border: 1px solid rgba(123,118,160,.2); color: var(--muted); }
@@ -214,35 +200,27 @@ body {
 
 <div class="main">
 
-  <!-- ══ FUNNEL HORIZONTAL ══ -->
   <div class="section-label">Embudo de conversión · 15 jun 09:00 → 16 jun 11:18</div>
 
   <div class="funnel">
-
     <div class="f-card f-c-default">
       <div class="fc-label">Contactos creados</div>
       <div class="fc-value">18</div>
       <div class="fc-sub">Lifecycle: lead</div>
     </div>
-
     <div class="f-arrow"></div>
-
     <div class="f-card f-hero">
       <div class="fc-label">Leads reales</div>
       <div class="fc-value">15</div>
       <div class="fc-sub">–2 duplicados · –1 descartado</div>
     </div>
-
     <div class="f-arrow"></div>
-
     <div class="f-card f-c-default">
       <div class="fc-label">MQL</div>
       <div class="fc-value">15</div>
       <div class="fc-sub">Marketing qualified</div>
     </div>
-
     <div class="f-arrow"></div>
-
     <div class="f-card f-c-orange">
       <div class="fc-label">SQLs del período</div>
       <div class="fc-value">3</div>
@@ -264,28 +242,22 @@ body {
         <div class="fc-inner-text">Demo<br>agendada</div>
       </div>
     </div>
-
     <div class="f-arrow"></div>
-
     <div class="f-card f-c-green">
       <div class="fc-label">Oportunidades nuevas</div>
       <div class="fc-opp-new">3</div>
       <div class="fc-opp-label">en este período</div>
       <div class="fc-opp-total"><strong>14</strong> oportunidades activas en total</div>
     </div>
-
     <div class="f-arrow"></div>
-
     <div class="f-card f-c-muted">
       <div class="fc-label">Clientes nuevos</div>
       <div class="fc-value" style="font-size:28px">—</div>
       <div class="fc-sub">0 en este período</div>
     </div>
-
   </div>
 
 
-  <!-- ── REVISIÓN VENTAS ── -->
   <div class="section-label">Leads en revisión de ventas</div>
   <div class="card">
     <div class="card-header">
@@ -341,7 +313,6 @@ body {
   </div>
 
 
-  <!-- ── SQL TOTALES ── -->
   <div class="section-label">Volumen SQL acumulado</div>
   <div class="card">
     <div class="card-header">
@@ -367,7 +338,6 @@ body {
   </div>
 
 
-  <!-- ── OPORTUNIDADES ACTIVAS ── -->
   <div class="section-label">Oportunidades activas · Pipeline de ventas</div>
   <div class="card">
     <div class="card-header">
@@ -401,7 +371,6 @@ body {
   </div>
 
 
-  <!-- ── RAZONES DE DESCARTE · LEADS ── -->
   <div class="section-label">Razones de descarte · Leads del período</div>
   <div class="card">
     <div class="card-header">
@@ -429,7 +398,6 @@ body {
   </div>
 
 
-  <!-- ── RAZONES DE DESCARTE · DEALS ── -->
   <div class="section-label">Razones de descarte · Deals / Oportunidades</div>
   <div class="card">
     <div class="card-header">
