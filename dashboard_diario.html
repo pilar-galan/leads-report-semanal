@@ -240,29 +240,10 @@ body {
 }
 #gs-gate .err { color: #ef4444; font-size: 12px; margin-top: 8px; display: none; }
 </style>
-<script>
-if(sessionStorage.getItem('gs_ok')==='1'){
-  document.write('<style>#gs-gate{display:none!important}</style>');
-}
-function gsCheck(){
-  var inp=document.getElementById('gs-pwd');
-  var err=document.getElementById('gs-err');
-  if(inp.value==='radar2026'){
-    sessionStorage.setItem('gs_ok','1');
-    document.getElementById('gs-gate').style.display='none';
-  } else {
-    err.style.display='block';
-    inp.value=''; inp.focus();
-  }
-}
-document.addEventListener('keydown',function(e){
-  if(e.key==='Enter'&&document.getElementById('gs-gate').style.display!=='none') gsCheck();
-});
-</script>
 </head>
 <body>
 
-<!-- LOGIN OVERLAY (visible por defecto, se oculta con JS si ya autenticado) -->
+<!-- LOGIN OVERLAY (visible por defecto, se oculta solo si ya autenticado) -->
 <div id="gs-gate">
   <div class="box">
     <div class="logo">GS</div>
@@ -509,5 +490,29 @@ document.addEventListener('keydown',function(e){
   </div>
 
 </div>
+
+<script>
+function gsCheck(){
+  var inp=document.getElementById('gs-pwd');
+  var err=document.getElementById('gs-err');
+  if(inp.value==='radar2026'){
+    try{ sessionStorage.setItem('gs_ok','1'); }catch(e){}
+    document.getElementById('gs-gate').style.display='none';
+  } else {
+    err.style.display='block';
+    inp.value=''; inp.focus();
+  }
+}
+try{
+  if(sessionStorage.getItem('gs_ok')==='1'){
+    document.getElementById('gs-gate').style.display='none';
+  }
+}catch(e){}
+document.addEventListener('keydown',function(e){
+  var g=document.getElementById('gs-gate');
+  if(e.key==='Enter'&&g&&g.style.display!=='none') gsCheck();
+});
+</script>
+
 </body>
 </html>
