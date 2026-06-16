@@ -35,279 +35,174 @@ body {
   min-height: 100vh;
 }
 
-/* HEADER */
+/* ── HEADER ── */
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   background: rgba(17,14,42,0.96);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
 }
-.header-inner {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 0 12px;
-  flex-wrap: wrap;
-}
+.header-inner { display: flex; align-items: center; gap: 16px; padding: 14px 0 12px; flex-wrap: wrap; }
 .logo-box {
   width: 40px; height: 40px;
   background: linear-gradient(135deg, var(--guru-500), var(--guru-400));
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 15px; color: #fff;
-  flex-shrink: 0;
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0;
   box-shadow: 0 0 16px rgba(124,58,237,0.4);
 }
 .header-title { flex: 1; min-width: 180px; }
 .header-title h1 { font-size: 16px; font-weight: 700; color: var(--text); }
-.header-title p { font-size: 12px; color: var(--muted); }
+.header-title p  { font-size: 12px; color: var(--muted); }
 .live-badge {
-  background: rgba(16,185,129,0.12);
-  border: 1px solid rgba(16,185,129,0.3);
-  color: var(--green);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 20px;
-  display: flex; align-items: center; gap: 5px;
-  white-space: nowrap;
+  background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3);
+  color: var(--green); font-size: 11px; font-weight: 600;
+  padding: 4px 10px; border-radius: 20px;
+  display: flex; align-items: center; gap: 5px; white-space: nowrap;
 }
-.live-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  animation: pulse 2s infinite;
-}
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* LAYOUT */
-.main { max-width: 1140px; margin: 0 auto; padding: 24px 20px 60px; }
-
-/* SECTION TITLE */
+/* ── LAYOUT ── */
+.main { max-width: 1160px; margin: 0 auto; padding: 24px 20px 60px; }
 .section-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 14px;
-  margin-top: 32px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 14px; margin-top: 32px;
 }
 .section-label:first-child { margin-top: 0; }
 
-/* ── FUNNEL KPI BLOCK ── */
-.funnel-block { margin-bottom: 8px; }
-
-.funnel-row {
+/* ══════════════════════════════════════════
+   FUNNEL HORIZONTAL
+══════════════════════════════════════════ */
+.funnel {
   display: flex;
   align-items: stretch;
   gap: 0;
-  margin-bottom: 10px;
 }
 
-.funnel-row-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  width: 90px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  padding-right: 12px;
+.f-arrow {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; flex-shrink: 0; color: var(--muted);
+  font-size: 18px; opacity: .5; padding-bottom: 2px;
 }
+.f-arrow::after { content: '›'; }
 
-.funnel-cells {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  flex: 1;
-}
-
-.funnel-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  flex-shrink: 0;
-  color: var(--border);
-  font-size: 14px;
-  position: relative;
-}
-.funnel-arrow::after {
-  content: '›';
-  font-size: 20px;
-  color: var(--muted);
-  opacity: .5;
-}
-
-.fkpi {
+.f-card {
   flex: 1;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 14px 16px 12px;
+  padding: 16px 16px 14px;
   position: relative;
   overflow: hidden;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.fkpi::before {
+.f-card::before {
   content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--faccent, var(--guru-500));
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--fc, var(--guru-500));
   border-radius: 10px 10px 0 0;
 }
-.fkpi .flabel {
-  font-size: 10px;
-  color: var(--muted);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-bottom: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.f-card .fc-label {
+  font-size: 10px; color: var(--muted); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
 }
-.fkpi .fvalue {
-  font-size: 30px;
-  font-weight: 800;
-  line-height: 1;
-  color: var(--fcolor, var(--text));
+.f-card .fc-value {
+  font-size: 28px; font-weight: 800; line-height: 1;
+  color: var(--fv, var(--text));
 }
-.fkpi .fsub {
-  font-size: 11px;
-  color: var(--muted);
-  margin-top: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.f-card .fc-sub {
+  font-size: 11px; color: var(--muted); margin-top: 2px;
 }
+.f-card.f-hero {
+  border-color: rgba(157,95,250,.4);
+  background: rgba(124,58,237,.08);
+  --fc: var(--guru-400);
+}
+.f-card.f-hero .fc-value { font-size: 38px; color: var(--guru-300); }
+.f-card.f-hero .fc-label { color: var(--guru-300); }
 
-.fkpi.c-default  { --faccent: var(--guru-500); --fcolor: var(--text); }
-.fkpi.c-blue     { --faccent: var(--blue);     --fcolor: var(--blue); }
-.fkpi.c-amber    { --faccent: var(--amber);    --fcolor: var(--amber); }
-.fkpi.c-red      { --faccent: var(--red);      --fcolor: var(--red); }
-.fkpi.c-green    { --faccent: var(--green);    --fcolor: var(--green); }
-.fkpi.c-purple   { --faccent: var(--guru-400); --fcolor: var(--guru-400); }
-.fkpi.c-orange   { --faccent: var(--orange);   --fcolor: var(--orange); }
-.fkpi.c-dim      { --faccent: #3a3660;         --fcolor: var(--muted); }
-
-.funnel-row.row2 .fkpi .fvalue { font-size: 26px; }
-.funnel-row.row3 .fkpi .fvalue { font-size: 26px; }
-
-/* CARDS */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px 22px;
-  margin-bottom: 12px;
+.fc-inner {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
 }
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
+.fc-inner .fc-inner-num  { font-size: 18px; font-weight: 800; color: var(--green); }
+.fc-inner .fc-inner-text { font-size: 11px; color: var(--muted); line-height: 1.3; }
+
+.fc-opp-new   { font-size: 38px; font-weight: 800; color: var(--green); line-height: 1; }
+.fc-opp-label { font-size: 10px; color: var(--green); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.fc-opp-total { font-size: 12px; color: var(--muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.fc-opp-total strong { color: var(--text-2); }
+
+.f-c-default { --fc: var(--guru-500); --fv: var(--text); }
+.f-c-purple  { --fc: var(--guru-400); --fv: var(--guru-400); }
+.f-c-orange  { --fc: var(--orange);   --fv: var(--orange); }
+.f-c-green   { --fc: var(--green);    --fv: var(--green); }
+.f-c-blue    { --fc: var(--blue);     --fv: var(--blue); }
+.f-c-muted   { --fc: #3a3660;         --fv: var(--muted); }
+
+/* ── CARDS ── */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 12px; }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .card-title { font-size: 14px; font-weight: 700; color: var(--text); }
-.badge {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-  letter-spacing: .04em;
-}
+.badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: .04em; }
 .badge-green  { background: rgba(16,185,129,.15); color: var(--green); border: 1px solid rgba(16,185,129,.3); }
-.badge-amber  { background: rgba(245,158,11,.15); color: var(--amber); border: 1px solid rgba(245,158,11,.3); }
 .badge-red    { background: rgba(239,68,68,.15);  color: var(--red);   border: 1px solid rgba(239,68,68,.3); }
 .badge-blue   { background: rgba(59,130,246,.15); color: var(--blue);  border: 1px solid rgba(59,130,246,.3); }
 .badge-purple { background: rgba(157,95,250,.15); color: var(--guru-400); border: 1px solid rgba(157,95,250,.3); }
-.badge-orange { background: rgba(249,115,22,.15); color: var(--orange); border: 1px solid rgba(249,115,22,.3); }
+.badge-muted  { background: rgba(123,118,160,.12); color: var(--muted); border: 1px solid rgba(123,118,160,.25); }
 
+/* ── REVISION GRID ── */
+.rev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.rev-cell { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.rev-num   { font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.rev-stage { font-size: 12px; font-weight: 600; }
+.rev-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── SQL MINI GRID ── */
+.sql-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.sql-cell { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.sql-num   { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.sql-label { font-size: 12px; font-weight: 600; }
+.sql-sub   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── TABLE ── */
 .table { width: 100%; border-collapse: collapse; }
 .table th { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding: 0 12px 10px 0; text-align: left; border-bottom: 1px solid var(--border); }
 .table td { font-size: 13px; color: var(--text-2); padding: 10px 12px 10px 0; border-bottom: 1px solid rgba(46,42,90,.5); vertical-align: middle; }
 .table tr:last-child td { border-bottom: none; }
 .table td strong { color: var(--text); font-weight: 600; }
+.table tr.stage-divider td { background: rgba(255,255,255,.03); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--border); }
 
-.stage-pill {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
-.stage-ok      { background: rgba(16,185,129,.15); color: var(--green); }
-.stage-review  { background: rgba(59,130,246,.15); color: var(--blue); }
-.stage-pending { background: rgba(245,158,11,.15); color: var(--amber); }
-.stage-discard { background: rgba(239,68,68,.15);  color: var(--red); }
-.stage-dup     { background: rgba(124,58,237,.15); color: var(--guru-300); }
+/* ── PILLS ── */
+.pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
+.pill-ok     { background: rgba(16,185,129,.15); color: var(--green); }
+.pill-dup    { background: rgba(124,58,237,.15); color: var(--guru-300); }
+.pill-disc   { background: rgba(239,68,68,.15);  color: var(--red); }
+.pill-demo   { background: rgba(16,185,129,.15); color: var(--green); }
+.pill-discov { background: rgba(124,58,237,.15); color: var(--guru-300); }
+.new-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; background: rgba(16,185,129,.2); color: var(--green); letter-spacing: .04em; text-transform: uppercase; }
 
-.deal-stage {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: 20px;
-  background: rgba(59,130,246,.15);
-  color: var(--blue);
-  white-space: nowrap;
-}
-.deal-stage.demo      { background: rgba(16,185,129,.15); color: var(--green); }
-.deal-stage.discovery { background: rgba(124,58,237,.15); color: var(--guru-300); }
-
+/* ── REASON BARS ── */
 .reason-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 .reason-row:last-child { margin-bottom: 0; }
-.reason-label { font-size: 13px; color: var(--text-2); min-width: 200px; flex-shrink: 0; }
+.reason-label { font-size: 13px; color: var(--text-2); min-width: 220px; flex-shrink: 0; }
 .reason-bar-wrap { flex: 1; background: rgba(255,255,255,.05); border-radius: 4px; height: 6px; }
 .reason-bar { height: 6px; border-radius: 4px; }
 .reason-count { font-size: 13px; font-weight: 700; color: var(--text); min-width: 28px; text-align: right; }
 
-.revision-grid {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 10px;
-}
-@media(max-width:700px){ .revision-grid { grid-template-columns: 1fr 1fr; } }
-.rev-cell {
-  background: rgba(255,255,255,.03);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.rev-num { font-size: 28px; font-weight: 800; line-height: 1; }
-.rev-info .rev-stage { font-size: 12px; font-weight: 600; }
-.rev-info .rev-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-.new-tag {
-  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px;
-  background: rgba(16,185,129,.2); color: var(--green);
-  letter-spacing: .04em; text-transform: uppercase;
-}
-.ts { font-size: 12px; color: var(--muted); }
-
-.alert-banner {
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 12px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  background: rgba(245,158,11,.08);
-  border: 1px solid rgba(245,158,11,.25);
-  color: #d4a017;
-}
+/* ── ALERT ── */
+.alert { border-radius: 8px; padding: 10px 14px; font-size: 12px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 8px; }
+.alert-amber  { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); color: #d4a017; }
+.alert-purple { background: rgba(157,95,250,.08); border: 1px solid rgba(157,95,250,.25); color: #c4a2fc; }
+.alert-green  { background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2);  color: #6ee7b7; }
+.alert-muted  { background: rgba(123,118,160,.06); border: 1px solid rgba(123,118,160,.2); color: var(--muted); }
 </style>
 </head>
 <body>
@@ -317,7 +212,7 @@ body {
     <div class="logo-box">GS</div>
     <div class="header-title">
       <h1>GuruSup · Dashboard Diario</h1>
-      <p>Lunes, 16 de junio de 2026 · 09:00 – 11:18 (hora España) · período: 15 jun 09:00 → 16 jun 11:18</p>
+      <p>Lunes, 16 de junio de 2026 · período: 15 jun 09:00 → 16 jun 11:18 (hora España)</p>
     </div>
     <span class="live-badge"><span class="live-dot"></span>Actualizado hoy</span>
   </div>
@@ -325,178 +220,133 @@ body {
 
 <div class="main">
 
-  <div class="section-label">Embudo del día · de izquierda a derecha</div>
-  <div class="funnel-block">
+  <!-- ══ FUNNEL HORIZONTAL ══ -->
+  <div class="section-label">Embudo de conversión · 15 jun 09:00 → 16 jun 11:18</div>
 
-    <div class="funnel-row row1">
-      <div class="funnel-row-label">Leads</div>
-      <div class="funnel-cells">
-        <div class="fkpi c-default">
-          <div class="flabel">Total leads</div>
-          <div class="fvalue">18</div>
-          <div class="fsub">Inbound del período</div>
-        </div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-blue">
-          <div class="flabel">Tratados ventas</div>
-          <div class="fvalue">17</div>
-          <div class="fsub">Con revisión asignada</div>
-        </div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-amber">
-          <div class="flabel">Pendiente revisión</div>
-          <div class="fvalue">1</div>
-          <div class="fsub">Sin estado de ventas</div>
-        </div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-red">
-          <div class="flabel">Descartados</div>
-          <div class="fvalue">1</div>
-          <div class="fsub">admin@chorlibici</div>
-        </div>
+  <div class="funnel">
+
+    <div class="f-card f-c-default">
+      <div class="fc-label">Contactos creados</div>
+      <div class="fc-value">18</div>
+      <div class="fc-sub">Lifecycle: lead</div>
+    </div>
+
+    <div class="f-arrow"></div>
+
+    <div class="f-card f-hero">
+      <div class="fc-label">Leads reales</div>
+      <div class="fc-value">15</div>
+      <div class="fc-sub">–2 duplicados · –1 descartado</div>
+    </div>
+
+    <div class="f-arrow"></div>
+
+    <div class="f-card f-c-default">
+      <div class="fc-label">MQL</div>
+      <div class="fc-value">15</div>
+      <div class="fc-sub">Marketing qualified</div>
+    </div>
+
+    <div class="f-arrow"></div>
+
+    <div class="f-card f-c-purple">
+      <div class="fc-label">SQL-Freemium</div>
+      <div class="fc-value">1</div>
+      <div class="fc-sub">Brava Nails</div>
+    </div>
+
+    <div class="f-arrow"></div>
+
+    <div class="f-card f-c-orange">
+      <div class="fc-label">SQL-Consultoría</div>
+      <div class="fc-value">2</div>
+      <div class="fc-sub">Netberry · Sector Vending</div>
+      <div class="fc-inner">
+        <div class="fc-inner-num">1</div>
+        <div class="fc-inner-text">Demo<br>agendada</div>
       </div>
     </div>
 
-    <div class="funnel-row row2">
-      <div class="funnel-row-label">Ciclo de vida</div>
-      <div class="funnel-cells">
-        <div class="fkpi c-default">
-          <div class="flabel">MQL</div>
-          <div class="fvalue">15</div>
-          <div class="fsub">Leads cualificados</div>
-        </div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-orange">
-          <div class="flabel">SQL-Consultoría</div>
-          <div class="fvalue">2</div>
-          <div class="fsub">Netberry · Sector Vending</div>
-        </div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-purple">
-          <div class="flabel">SQL-Freemium</div>
-          <div class="fvalue">1</div>
-          <div class="fsub">Brava Nails</div>
-        </div>
-        <div class="funnel-arrow" style="visibility:hidden"></div>
-        <div class="fkpi c-dim" style="visibility:hidden"><div class="fvalue">—</div></div>
-      </div>
+    <div class="f-arrow"></div>
+
+    <div class="f-card f-c-green">
+      <div class="fc-label">Oportunidades nuevas</div>
+      <div class="fc-opp-new">3</div>
+      <div class="fc-opp-label">en este período</div>
+      <div class="fc-opp-total"><strong>14</strong> oportunidades activas en total</div>
     </div>
 
-    <div class="funnel-row row3">
-      <div class="funnel-row-label">Conversión</div>
-      <div class="funnel-cells">
-        <div class="fkpi c-dim" style="visibility:hidden"><div class="fvalue">—</div></div>
-        <div class="funnel-arrow" style="visibility:hidden"></div>
-        <div class="fkpi c-dim" style="visibility:hidden"><div class="fvalue">—</div></div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-green">
-          <div class="flabel">Demos agendadas</div>
-          <div class="fvalue">1</div>
-          <div class="fsub">Brava Nails · 15 jun</div>
-        </div>
-        <div class="funnel-arrow"></div>
-        <div class="fkpi c-blue">
-          <div class="flabel">Oportunidades activas</div>
-          <div class="fvalue">14</div>
-          <div class="fsub">3 nuevas este período</div>
-        </div>
-      </div>
+    <div class="f-arrow"></div>
+
+    <div class="f-card f-c-muted">
+      <div class="fc-label">Clientes nuevos</div>
+      <div class="fc-value" style="font-size:28px">—</div>
+      <div class="fc-sub">0 en este período</div>
     </div>
 
   </div>
+
 
   <div class="section-label">Leads en revisión de ventas</div>
   <div class="card">
     <div class="card-header">
-      <span class="card-title">Estado de revisión de ventas</span>
-      <span class="badge badge-blue">17 contactos</span>
+      <span class="card-title">Estado de revisión · 17 contactos tratados</span>
+      <span class="badge badge-blue">17 de 18 leads</span>
     </div>
-    <div class="revision-grid" style="margin-bottom:20px;">
+    <div class="rev-grid">
       <div class="rev-cell">
         <div class="rev-num" style="color:var(--green)">14</div>
-        <div class="rev-info">
-          <div class="rev-stage" style="color:var(--green)">Ya gestionado</div>
-          <div class="rev-sub">Proceso completado</div>
-        </div>
+        <div class="rev-stage" style="color:var(--green)">Ya gestionado</div>
+        <div class="rev-sub">Proceso completado</div>
+      </div>
+      <div class="rev-cell">
+        <div class="rev-num" style="color:var(--amber)">1</div>
+        <div class="rev-stage" style="color:var(--amber)">Pendiente de revisión</div>
+        <div class="rev-sub">Sin asignar aún</div>
       </div>
       <div class="rev-cell">
         <div class="rev-num" style="color:var(--guru-400)">2</div>
-        <div class="rev-info">
-          <div class="rev-stage" style="color:var(--guru-400)">Duplicado</div>
-          <div class="rev-sub">Contacto ya existe</div>
-        </div>
+        <div class="rev-stage" style="color:var(--guru-400)">Duplicado</div>
+        <div class="rev-sub">Contacto ya existente</div>
       </div>
       <div class="rev-cell">
         <div class="rev-num" style="color:var(--red)">1</div>
-        <div class="rev-info">
-          <div class="rev-stage" style="color:var(--red)">No aplica / Descartado</div>
-          <div class="rev-sub">Sin potencial comercial</div>
-        </div>
+        <div class="rev-stage" style="color:var(--red)">No aplica / Descartado</div>
+        <div class="rev-sub">Sin potencial comercial</div>
+      </div>
+      <div class="rev-cell">
+        <div class="rev-num" style="color:var(--muted)">0</div>
+        <div class="rev-stage" style="color:var(--muted)">En revisión activa</div>
+        <div class="rev-sub">En proceso</div>
       </div>
     </div>
-    <table class="table">
-      <thead>
-        <tr><th>Contacto</th><th>Empresa</th><th>Estado revisión</th><th>Ciclo de vida</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Daria Kowalska</strong></td><td>Social4you</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Juan Sanchez</strong></td><td>Netberry</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">SQL-Consultoría</span></td></tr>
-        <tr><td><strong>Ángel</strong></td><td>Sector Vending</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">SQL-Consultoría</span></td></tr>
-        <tr><td><strong>Adrian Orriols</strong></td><td>STR</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Jose Ramon</strong></td><td>Zambrana</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Antonio Ryck</strong></td><td>AR Global Realty</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Vanina</strong></td><td>Product Hackers</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Demo</strong></td><td>Brava Nails</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Ikram Bentaher</strong></td><td>Abai Group</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Abdelfettah Ammi</strong></td><td>Abai Group</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Amin</strong></td><td>Belleza Shop</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Asier</strong></td><td>School</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Carlos Lara</strong></td><td>—</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Informatica</strong></td><td>Airlan</td><td><span class="stage-pill stage-ok">Ya gestionado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Ikram (variante)</strong></td><td>Abai Group</td><td><span class="stage-pill stage-dup">Duplicado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Adrian (gmail)</strong></td><td>—</td><td><span class="stage-pill stage-dup">Duplicado</span></td><td><span class="ts">MQL</span></td></tr>
-        <tr><td><strong>Admin</strong></td><td>Chorlibici</td><td><span class="stage-pill stage-discard">No aplica / Descartado</span></td><td><span class="ts">MQL</span></td></tr>
-      </tbody>
-    </table>
   </div>
 
-  <div class="section-label">Descartados del día</div>
+
+  <div class="section-label">Volumen SQL acumulado</div>
   <div class="card">
     <div class="card-header">
-      <span class="card-title">Contactos descartados del total de leads del período</span>
-      <span class="badge badge-red">1 de 18 leads</span>
+      <span class="card-title">Total SQL por tipo · acumulado histórico</span>
     </div>
-    <div class="reason-row">
-      <div class="reason-label">No aplica / sin potencial</div>
-      <div class="reason-bar-wrap"><div class="reason-bar" style="width:100%; background:var(--red)"></div></div>
-      <div class="reason-count">1</div>
+    <div class="sql-grid">
+      <div class="sql-cell">
+        <div class="sql-num" style="color:var(--orange)">4</div>
+        <div class="sql-label" style="color:var(--orange)">SQL-Consultoría</div>
+        <div class="sql-sub">Acumulado total</div>
+      </div>
+      <div class="sql-cell">
+        <div class="sql-num" style="color:var(--guru-400)">1.168</div>
+        <div class="sql-label" style="color:var(--guru-400)">SQL-Freemium</div>
+        <div class="sql-sub">Incluye importación BBDD (414)</div>
+      </div>
+      <div class="sql-cell">
+        <div class="sql-num" style="color:var(--text)">1.172</div>
+        <div class="sql-label">Total SQL</div>
+        <div class="sql-sub">Consultoría + Freemium</div>
+      </div>
     </div>
-    <p style="font-size:12px; color:var(--muted); margin-top:12px;">
-      ℹ️ Nota: 43 cuentas internas <strong>@gurusup.com</strong> importadas el 15 jun (BBDD app) no se contabilizan como leads del día — se clasificaron como lifecycle "other" automáticamente.
-    </p>
   </div>
 
-  <div class="section-label">Nuevos SQL-Freemium</div>
-  <div class="card">
-    <div class="card-header">
-      <span class="card-title">Importación BBDD Freemium · 15 jun</span>
-      <span class="badge badge-purple">414 contactos · Total acumulado: 1.168</span>
-    </div>
-    <div class="alert-banner" style="background:rgba(157,95,250,.08); border-color:rgba(157,95,250,.25); color:#c4a2fc;">
-      📦 Importación masiva de contactos freemium de la app de GuruSup realizada el <strong>15 jun a las 11:20 UTC</strong>. Cuentas demo/test pendientes de limpieza.
-    </div>
-    <table class="table">
-      <thead><tr><th>Detalle</th><th>Valor</th></tr></thead>
-      <tbody>
-        <tr><td>Contactos importados en período</td><td><strong>414</strong></td></tr>
-        <tr><td>Método</td><td>Importación offline (BBDD app)</td></tr>
-        <tr><td>Ciclo de vida asignado</td><td>SQL-Freemium</td></tr>
-        <tr><td>Cuentas internas detectadas (@gurusup.com)</td><td><strong>43</strong> · clasificadas como "other"</td></tr>
-        <tr><td>Cuentas demo/test detectadas</td><td>Varias (demo@, test@) · pendiente limpieza</td></tr>
-        <tr><td>Total SQL-Freemium acumulado</td><td><strong>1.168</strong></td></tr>
-      </tbody>
-    </table>
-  </div>
 
   <div class="section-label">Oportunidades activas · Pipeline de ventas</div>
   <div class="card">
@@ -504,46 +354,90 @@ body {
       <span class="card-title">Deals activos desde Discovery en adelante</span>
       <span class="badge badge-green">14 deals activos</span>
     </div>
-    <div class="alert-banner" style="background:rgba(16,185,129,.06); border-color:rgba(16,185,129,.2); color:#6ee7b7;">
-      🆕 Nuevas oportunidades del período: <strong>Blue Banana</strong> (16 jun) · <strong>DVD Dental Solution</strong> (15 jun) · <strong>Brava Nails</strong> (15 jun, demo agendada)
+    <div class="alert alert-green">
+      🆕 Nuevas este período: <strong>Blue Banana</strong> (16 jun) · <strong>DVD Dental Solution</strong> (15 jun) · <strong>Brava Nails</strong> (15 jun)
     </div>
     <table class="table">
-      <thead><tr><th>Empresa</th><th>Etapa</th><th>Pipeline</th></tr></thead>
+      <thead><tr><th>Empresa</th><th>Etapa</th></tr></thead>
       <tbody>
-        <tr><td><strong>Brava Nails</strong> <span class="new-tag">NUEVO</span></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Blue Banana</strong> <span class="new-tag">NUEVO</span></td><td><span class="deal-stage discovery">Discovery</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>DVD Dental Solution</strong> <span class="new-tag">NUEVO</span></td><td><span class="deal-stage discovery">Discovery</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Rusticae</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>GlowWhite</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Grupo Alsea</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Davante</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Som Mobilitat</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Redexis</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Meit</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Gam Rentals</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Plenergy</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Nattivus</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
-        <tr><td><strong>Dencanto Community</strong></td><td><span class="deal-stage demo">Demo · Reunión</span></td><td>Pipeline de ventas</td></tr>
+        <tr class="stage-divider"><td colspan="2">🔍 Discovery &amp; Lead Qualification — 2 deals</td></tr>
+        <tr><td><strong>Blue Banana</strong> <span class="new-tag">NUEVO</span></td><td><span class="pill pill-discov">Discovery</span></td></tr>
+        <tr><td><strong>DVD Dental Solution</strong> <span class="new-tag">NUEVO</span></td><td><span class="pill pill-discov">Discovery</span></td></tr>
+        <tr class="stage-divider"><td colspan="2">📅 Demo / Reunión — 12 deals</td></tr>
+        <tr><td><strong>Brava Nails</strong> <span class="new-tag">NUEVO</span></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Rusticae</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>GlowWhite</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Grupo Alsea</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Davante</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Som Mobilitat</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Redexis</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Meit</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Gam Rentals</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Plenergy</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Nattivus</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
+        <tr><td><strong>Dencanto Community</strong></td><td><span class="pill pill-demo">Demo · Reunión</span></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="section-label">Razones de descarte</div>
+
+  <div class="section-label">Razones de descarte · Leads del período</div>
   <div class="card">
     <div class="card-header">
-      <span class="card-title">Motivos de descarte · leads del período</span>
-      <span class="badge badge-red">1 lead descartado</span>
+      <span class="card-title">Motivos por estado de revisión ventas</span>
+      <span class="badge badge-red">1 descartado · 2 duplicados</span>
     </div>
     <div class="reason-row">
       <div class="reason-label">No aplica / sin potencial comercial</div>
-      <div class="reason-bar-wrap"><div class="reason-bar" style="width:100%; background:var(--red)"></div></div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:33%; background:var(--red)"></div></div>
       <div class="reason-count">1</div>
+    </div>
+    <div class="reason-row">
+      <div class="reason-label">Duplicado (contacto ya existente)</div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:66%; background:var(--guru-400)"></div></div>
+      <div class="reason-count">2</div>
+    </div>
+    <div class="reason-row">
+      <div class="reason-label">Test / cuenta interna</div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:0%"></div></div>
+      <div class="reason-count">0</div>
+    </div>
+    <p style="font-size:12px; color:var(--muted); margin-top:14px;">
+      ℹ️ 43 cuentas <strong>@gurusup.com</strong> (importación BBDD, 15 jun) excluidas del conteo — lifecycle "other" automático.
+    </p>
+  </div>
+
+
+  <div class="section-label">Razones de descarte · Deals / Oportunidades</div>
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Oportunidades cerradas o perdidas en el período</span>
+      <span class="badge badge-muted">0 deals cerrados</span>
+    </div>
+    <div class="alert alert-muted">
+      ✓ Sin deals cerrados ni perdidos en este período. El pipeline activo se mantiene en 14 oportunidades.
+    </div>
+    <div class="reason-row">
+      <div class="reason-label">Closed Lost · sin motivo especificado</div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:0%"></div></div>
+      <div class="reason-count">0</div>
+    </div>
+    <div class="reason-row">
+      <div class="reason-label">No encaja con ICP</div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:0%"></div></div>
+      <div class="reason-count">0</div>
+    </div>
+    <div class="reason-row">
+      <div class="reason-label">Precio / presupuesto</div>
+      <div class="reason-bar-wrap"><div class="reason-bar" style="width:0%"></div></div>
+      <div class="reason-count">0</div>
     </div>
   </div>
 
+
   <div style="margin-top:40px; text-align:center; font-size:12px; color:var(--muted);">
     GuruSup · Dashboard Diario generado el 16 jun 2026 · 11:18 hora España<br>
-    Período de cobertura: 15 jun 09:00 – 16 jun 11:18 (hora España · UTC+2)
+    Período: 15 jun 09:00 – 16 jun 11:18 (hora España · UTC+2)
   </div>
 
 </div>
