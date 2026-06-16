@@ -2,7 +2,8 @@ name: Daily Leads Report → Discord
 
 on:
   schedule:
-    - cron: '30 6 * * *'   # Cada día 08:30 hora España (UTC+2 verano)
+    # 06:30 UTC = 08:30 hora España (verano UTC+2). Solo lunes a viernes (1-5).
+    - cron: '30 6 * * 1-5'
   workflow_dispatch:
 
 jobs:
@@ -16,13 +17,29 @@ jobs:
         run: |
           python3 << 'PYEOF'
           import os, requests
+          from datetime import datetime, timedelta, timezone
 
           webhook = os.environ['DISCORD_WEBHOOK_URL']
           thread_id = os.environ['DISCORD_THREAD_ID']
           dashboard_url = 'https://pilar-galan.github.io/leads-report-diario/dashboard_diario.html'
 
+          # Hora España (UTC+2 en verano)
+          now = datetime.now(timezone.utc) + timedelta(hours=2)
+          MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
+                   'agosto','septiembre','octubre','noviembre','diciembre']
+          hoy = f"{now.day} de {MESES[now.month-1]}"
+
+          # Los lunes (weekday()==0) el informe cubre también el fin de semana
+          if now.weekday() == 0:
+              periodo = "incluye el fin de semana (sábado y domingo)"
+          else:
+              periodo = "últimas 24h"
+
           message = {
-              "content": f"📊 **Informe diario GuruSup** → {dashboard_url}"
+              "content": (
+                  f"📊 **Informe diario GuruSup** · {hoy} ({periodo})\n"
+                  f"{dashboard_url}"
+              )
           }
 
           url = f"{webhook}?thread_id={thread_id}"
