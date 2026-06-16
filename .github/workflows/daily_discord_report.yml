@@ -1,0 +1,31 @@
+name: Daily Leads Report → Discord
+
+on:
+  schedule:
+    - cron: '30 6 * * *'   # Cada día 08:30 hora España (UTC+2 verano)
+  workflow_dispatch:        # También ejecutable manualmente
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_THREAD_ID: ${{ secrets.DISCORD_THREAD_ID }}
+        run: |
+          python3 << 'PYEOF'
+          import os, requests, json
+
+          webhook = os.environ['DISCORD_WEBHOOK_URL']
+          thread_id = os.environ['DISCORD_THREAD_ID']
+          dashboard_url = 'https://pilar-galan.github.io/leads-report-semanal/dashboard_diario.html'
+
+          message = {
+              "content": f"📊 **Informe diario GuruSup** → {dashboard_url}"
+          }
+
+          url = f"{webhook}?thread_id={thread_id}"
+          r = requests.post(url, json=message)
+          print("Status:", r.status_code, r.text[:200])
+          PYEOF
