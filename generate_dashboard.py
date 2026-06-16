@@ -165,16 +165,16 @@ def main():
             src_counts[v] = src_counts.get(v, 0) + 1
     total_src = sum(src_counts.values()) or 1
 
-    # ── DEALS (pipeline ventas, sin ruido de signups freemium con email en el nombre) ──
-    # Los signups freemium se llaman "Nombre xxx@gurusup.com" o "correo@gmail.com".
-    # HubSpot tokeniza el nombre, así que excluimos por tokens de dominio de email.
-    noise_tokens = ["gurusup", "gmail", "hotmail", "outlook", "yahoo", "icloud", "proton"]
+    # ── DEALS (pipeline ventas) ──
+    # Excluimos los signups freemium / spam: su nombre es un email (contiene "@").
+    # El filtrado se hace en Python porque la tokenización de HubSpot no es fiable
+    # para excluir dominios de email dentro del dealname.
     deal_filters = [
         {"propertyName": "pipeline", "operator": "EQ", "value": "default"},
         {"propertyName": "hs_is_closed", "operator": "EQ", "value": "false"},
-    ] + [{"propertyName": "dealname", "operator": "NOT_CONTAINS_TOKEN", "value": t}
-         for t in noise_tokens]
-    deals = count_all_pages("deals", deal_filters, ["dealname", "dealstage", "createdate"])
+    ]
+    all_deals = count_all_pages("deals", deal_filters, ["dealname", "dealstage", "createdate"])
+    deals = [d for d in all_deals if "@" not in (d["properties"].get("dealname") or "")]
     deals_activos = len(deals)
     deals_nuevos = [d for d in deals
                     if d["properties"].get("createdate", "") >= start_iso]
