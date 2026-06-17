@@ -1,0 +1,7 @@
+# Credenciales locales — nunca subir al repositorio
+.env
+.env.local
+*.local
+
+# Node
+node_modules/
