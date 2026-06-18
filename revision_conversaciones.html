@@ -78,6 +78,19 @@ a{color:inherit;text-decoration:none}
 .about-gs-head .ak{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .about-gs-head h3{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
 .about-gs p{font-size:14.5px;color:var(--text-2);max-width:680px}
+.about-gs p strong{color:var(--ink)}
+/* Company Brain · bocadillo destacado dentro de GuruSup */
+.cb-inset{position:relative;margin-top:20px;border-radius:16px;padding:20px 22px 18px;background:linear-gradient(180deg,#fff6f3,#ffe9e3);border:1px solid rgba(255,107,91,.32);box-shadow:0 10px 26px rgba(224,73,58,.2)}
+.cb-inset::before{content:'';position:absolute;top:-8px;left:30px;width:16px;height:16px;background:#fff6f3;border-left:1px solid rgba(255,107,91,.32);border-top:1px solid rgba(255,107,91,.32);transform:rotate(45deg)}
+.cb-inset-head{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.cb-emoji{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 4px 13px rgba(255,107,91,.45)}
+.cb-inset-head .ck{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#e0493a}
+.cb-inset-head h4{font-size:17px;font-weight:800;color:#1c1638;letter-spacing:-.01em}
+.cb-inset p{font-size:13.5px;color:#544c70;max-width:660px}
+.cb-inset p+p{margin-top:8px}
+.cb-inset p strong{color:#1c1638;font-weight:700}
+.cb-inset .brain-chips{margin-top:13px}
+.cb-inset .bchip{color:#e0493a;background:#fff;border:1px solid rgba(255,107,91,.4)}
 
 /* ===== FINDING SECTION ===== */
 .finding{scroll-margin-top:84px;border:1px solid var(--border);border-radius:22px;background:var(--card);overflow:hidden;margin-bottom:18px;box-shadow:var(--shadow)}
@@ -494,32 +507,28 @@ a{color:inherit;text-decoration:none}
     </div>
   </section>
 
-  <!-- ===== QUIÉNES SOMOS · GURUSUP + COMPANY BRAIN ===== -->
+  <!-- ===== QUIÉNES SOMOS · GURUSUP (con Company Brain integrado) ===== -->
   <div class="section-label">Quiénes somos · GuruSup y Company Brain</div>
 
   <div class="about-gs">
     <div class="about-gs-head">
       <div class="about-gs-logo">GS</div>
-      <div><span class="ak">La plataforma · lo que ya hacemos</span><h3>GuruSup</h3></div>
+      <div><span class="ak">La compañía · la plataforma</span><h3>GuruSup</h3></div>
     </div>
-    <p><strong style="color:var(--ink)">GuruSup</strong> es la plataforma de <strong style="color:var(--ink)">agentes de IA conversacionales</strong> que atienden a tus clientes en todos los canales —WhatsApp, chat web y voz— para cualificar, dar soporte y vender de forma automática, con un trato cercano y natural.</p>
-  </div>
+    <p><strong>GuruSup</strong> es la plataforma de <strong>agentes de IA</strong> que <strong>automatiza y optimiza el servicio de atención al cliente</strong> —en WhatsApp, chat web y voz—, haciéndolo más eficiente con un trato cercano y natural.</p>
 
-  <div class="brain-card">
-    <div class="brain-inner">
-      <div class="brain-emoji">🧠</div>
-      <div class="brain-text">
-        <span class="kicker">★ Nueva propuesta de valor · en testeo</span>
-        <h3>Company Brain</h3>
-        <p>El <strong style="color:var(--ink)">80% del conocimiento</strong> de una empresa no está digitalizado: vive en las personas, en Slack, emails, llamadas y WhatsApp. <strong style="color:var(--ink)">Company Brain</strong> recoge esa «parte sumergida del iceberg», se mantiene actualizada sola (<em>self-learning</em>) y la expone como un <strong style="color:var(--ink)">cerebro central</strong> al que preguntan tanto las personas como los agentes de IA.</p>
-        <p>Lo diferencial: detecta los huecos entre lo que sabe y lo que ocurre y <strong style="color:var(--ink)">pregunta proactivamente</strong> para rellenarlos. Así la dirección decide con información consolidada y todo el equipo alcanza el impacto del que más sabe.</p>
-        <div class="brain-chips">
-          <span class="bchip">+350 integraciones</span>
-          <span class="bchip">Self-learning</span>
-          <span class="bchip">Plug &amp; play · listo para escalar</span>
-        </div>
+    <!-- Bocadillo destacado: Company Brain (parte de GuruSup) -->
+    <div class="cb-inset">
+      <div class="cb-inset-head">
+        <div class="cb-emoji">🧠</div>
+        <div><span class="ck">★ Parte de GuruSup · nueva propuesta de valor en testeo</span><h4>Company Brain</h4></div>
       </div>
-      <span class="tag tag-new" style="align-self:flex-start">★ La novedad</span>
+      <p>Y ahora, gracias a <strong>Company Brain</strong>, hacemos un <em>match</em> que aporta aún más valor: los agentes trabajan con <strong>todo el conocimiento de tu empresa</strong> y, cada vez que se usa, <strong>mejora</strong>.</p>
+      <p>El 80% de ese conocimiento no está digitalizado —vive en personas, Slack, emails, llamadas y WhatsApp—. Company Brain lo recoge, se mantiene al día solo (<em>self-learning</em>) y lo expone como un <strong>cerebro central</strong> para personas y agentes de IA, detectando huecos y preguntando proactivamente para rellenarlos.</p>
+      <div class="brain-chips">
+        <span class="bchip">+350 integraciones</span>
+        <span class="bchip">Self-learning</span>
+      </div>
     </div>
   </div>
 
