@@ -39,11 +39,9 @@ jobs:
             git push
           fi
 
-  # ── Job 2: envía aviso a Discord ──────────────────────────────────────────
+  # ── Job 2: envía aviso a Discord — solo cron automático, nunca manual ─────
   send-discord:
-    if: |
-      github.event_name == 'workflow_dispatch' ||
-      github.event.schedule == '0 7 * * 1-5'
+    if: github.event.schedule == '0 7 * * 1-5'
     runs-on: ubuntu-latest
     steps:
       - name: Enviar aviso a Discord
@@ -62,7 +60,7 @@ jobs:
           now = datetime.now(timezone.utc) + timedelta(hours=2)
           MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
                    'agosto','septiembre','octubre','noviembre','diciembre']
-          hoy    = f"{now.day} de {MESES[now.month-1]}"
+          hoy = f"{now.day} de {MESES[now.month-1]}"
 
           message = {"content": f"📊 **Informe diario GuruSup** · {hoy}\n{dashboard_url}"}
           url = f"{webhook}?thread_id={thread_id}"
