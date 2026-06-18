@@ -71,6 +71,13 @@ a{color:inherit;text-decoration:none}
 .brain-text p+p{margin-top:10px}
 .brain-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
 .bchip{font-size:11px;font-weight:700;color:var(--coral-light);background:var(--brand-soft);border:1px solid rgba(255,107,91,.34);padding:5px 11px;border-radius:20px}
+/* GuruSup (parte de "Quiénes somos") */
+.about-gs{border:1px solid var(--border);border-radius:22px;background:var(--card);box-shadow:var(--shadow);padding:26px 30px 24px;margin-bottom:14px}
+.about-gs-head{display:flex;align-items:center;gap:14px;margin-bottom:13px}
+.about-gs-logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px;box-shadow:0 5px 16px rgba(255,107,91,.4);flex-shrink:0}
+.about-gs-head .ak{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.about-gs-head h3{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.about-gs p{font-size:14.5px;color:var(--text-2);max-width:680px}
 
 /* ===== FINDING SECTION ===== */
 .finding{scroll-margin-top:84px;border:1px solid var(--border);border-radius:22px;background:var(--card);overflow:hidden;margin-bottom:18px;box-shadow:var(--shadow)}
@@ -478,26 +485,31 @@ a{color:inherit;text-decoration:none}
         <div class="block b-action span-2">
           <div class="block-head"><div class="block-icon">🛠️</div><div class="block-title">Acción propuesta</div></div>
           <ul>
-            <li>Definir un párrafo <strong>breve y natural</strong> sobre quiénes somos, origen y fundación, listo para los agentes.</li>
-            <li>Preparar lo mismo para <strong>Company Brain</strong>: un párrafo breve que lo posicione.</li>
+            <li>Mensajes <strong>breves y naturales</strong> de quiénes somos y de Company Brain, listos para los agentes (ver bloque «Quiénes somos» más abajo).</li>
+            <li>Diferenciar bien <strong>GuruSup</strong> (lo que ya hacemos) de <strong>Company Brain</strong> (la nueva propuesta de valor).</li>
             <li>Que suene integrado en la conversación, no forzado.</li>
           </ul>
-        </div>
-        <div class="block b-learn span-2">
-          <div class="block-head"><div class="block-icon">⏳</div><div class="block-title">Pendiente</div></div>
-          <div class="placeholder-note">🤝 Texto definitivo de ambos párrafos a consolidar con Marisa.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== COMPANY BRAIN — POSICIONAMIENTO ===== -->
-  <div class="section-label">Quiénes somos · Nuestro ecosistema de producto</div>
+  <!-- ===== QUIÉNES SOMOS · GURUSUP + COMPANY BRAIN ===== -->
+  <div class="section-label">Quiénes somos · GuruSup y Company Brain</div>
+
+  <div class="about-gs">
+    <div class="about-gs-head">
+      <div class="about-gs-logo">GS</div>
+      <div><span class="ak">La plataforma · lo que ya hacemos</span><h3>GuruSup</h3></div>
+    </div>
+    <p><strong style="color:var(--ink)">GuruSup</strong> es la plataforma de <strong style="color:var(--ink)">agentes de IA conversacionales</strong> que atienden a tus clientes en todos los canales —WhatsApp, chat web y voz— para cualificar, dar soporte y vender de forma automática, con un trato cercano y natural.</p>
+  </div>
+
   <div class="brain-card">
     <div class="brain-inner">
       <div class="brain-emoji">🧠</div>
       <div class="brain-text">
-        <span class="kicker">★ Nuevo · A posicionar</span>
+        <span class="kicker">★ Nueva propuesta de valor · en testeo</span>
         <h3>Company Brain</h3>
         <p>El <strong style="color:var(--ink)">80% del conocimiento</strong> de una empresa no está digitalizado: vive en las personas, en Slack, emails, llamadas y WhatsApp. <strong style="color:var(--ink)">Company Brain</strong> recoge esa «parte sumergida del iceberg», se mantiene actualizada sola (<em>self-learning</em>) y la expone como un <strong style="color:var(--ink)">cerebro central</strong> al que preguntan tanto las personas como los agentes de IA.</p>
         <p>Lo diferencial: detecta los huecos entre lo que sabe y lo que ocurre y <strong style="color:var(--ink)">pregunta proactivamente</strong> para rellenarlos. Así la dirección decide con información consolidada y todo el equipo alcanza el impacto del que más sabe.</p>
@@ -507,7 +519,7 @@ a{color:inherit;text-decoration:none}
           <span class="bchip">Plug &amp; play · listo para escalar</span>
         </div>
       </div>
-      <span class="tag tag-new" style="align-self:flex-start">★ Nuevo producto</span>
+      <span class="tag tag-new" style="align-self:flex-start">★ La novedad</span>
     </div>
   </div>
 
