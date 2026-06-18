@@ -67,7 +67,10 @@ a{color:inherit;text-decoration:none}
 .brain-text{flex:1;min-width:240px}
 .brain-text .kicker{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-light)}
 .brain-text h3{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.02em;margin:7px 0 7px}
-.brain-text p{font-size:14.5px;color:var(--text-2);max-width:600px}
+.brain-text p{font-size:14.5px;color:var(--text-2);max-width:640px}
+.brain-text p+p{margin-top:10px}
+.brain-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.bchip{font-size:11px;font-weight:700;color:var(--coral-light);background:var(--brand-soft);border:1px solid rgba(255,107,91,.34);padding:5px 11px;border-radius:20px}
 
 /* ===== FINDING SECTION ===== */
 .finding{scroll-margin-top:84px;border:1px solid var(--border);border-radius:22px;background:var(--card);overflow:hidden;margin-bottom:18px;box-shadow:var(--shadow)}
@@ -496,7 +499,13 @@ a{color:inherit;text-decoration:none}
       <div class="brain-text">
         <span class="kicker">★ Nuevo · A posicionar</span>
         <h3>Company Brain</h3>
-        <p>Junto a la plataforma de agentes de GuruSup, <strong style="color:var(--ink)">Company Brain</strong> es nuestra nueva solución y un foco clave de posicionamiento. Allá donde se cuente la historia de GuruSup y quiénes somos, Company Brain debe aparecer como parte del relato.</p>
+        <p>El <strong style="color:var(--ink)">80% del conocimiento</strong> de una empresa no está digitalizado: vive en las personas, en Slack, emails, llamadas y WhatsApp. <strong style="color:var(--ink)">Company Brain</strong> recoge esa «parte sumergida del iceberg», se mantiene actualizada sola (<em>self-learning</em>) y la expone como un <strong style="color:var(--ink)">cerebro central</strong> al que preguntan tanto las personas como los agentes de IA.</p>
+        <p>Lo diferencial: detecta los huecos entre lo que sabe y lo que ocurre y <strong style="color:var(--ink)">pregunta proactivamente</strong> para rellenarlos. Así la dirección decide con información consolidada y todo el equipo alcanza el impacto del que más sabe.</p>
+        <div class="brain-chips">
+          <span class="bchip">+350 integraciones</span>
+          <span class="bchip">Self-learning</span>
+          <span class="bchip">Plug &amp; play · listo para escalar</span>
+        </div>
       </div>
       <span class="tag tag-new" style="align-self:flex-start">★ Nuevo producto</span>
     </div>
