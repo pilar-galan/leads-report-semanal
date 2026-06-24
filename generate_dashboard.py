@@ -383,7 +383,8 @@ body{{background:var(--guru-900);color:var(--text);font-family:-apple-system,Bli
 .section-label{{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:32px 0 14px}}
 .section-label:first-child{{margin-top:0}}
 .funnel{{display:flex;gap:10px;flex-wrap:wrap}}
-.f-card{{flex:1;min-width:200px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden}}
+.f-card{{flex:1;min-width:140px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden}}
+.webinar-badge{{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:5px 10px;border-radius:8px;background:rgba(157,95,250,.12);border:1px solid rgba(157,95,250,.3);font-size:10px;font-weight:600;color:var(--guru-300);line-height:1.4}}
 .f-card::before{{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--fc,var(--brand))}}
 .fc-label{{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em}}
 .fc-value{{font-size:44px;font-weight:800;line-height:1.1;color:var(--fv,var(--text))}}
@@ -391,7 +392,7 @@ body{{background:var(--guru-900);color:var(--text);font-family:-apple-system,Bli
 .fc-pct{{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--brand);background:rgba(255,107,91,.12);padding:2px 8px;border-radius:20px}}
 .fc-breakdown{{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}}
 .fbd-item{{text-align:center}}.fbd-num{{font-size:22px;font-weight:800}}.fbd-label{{font-size:10px;color:var(--muted);margin-top:2px}}
-.f-leads{{--fc:var(--brand);--fv:var(--brand)}}.f-sql{{--fc:var(--orange);--fv:var(--orange)}}.f-demo{{--fc:var(--green);--fv:var(--green)}}.f-clients{{--fc:var(--guru-400);--fv:var(--guru-300)}}
+.f-leads{{--fc:var(--brand);--fv:var(--brand)}}.f-sql-consult{{--fc:var(--orange);--fv:var(--orange)}}.f-sql-free{{--fc:var(--guru-300);--fv:var(--guru-300)}}.f-demo{{--fc:var(--green);--fv:var(--green)}}.f-clients{{--fc:var(--guru-400);--fv:var(--guru-300)}}
 .rev-blocks{{display:flex;gap:10px;flex-wrap:wrap}}
 .rev-block{{flex:1;min-width:140px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative;overflow:hidden}}
 .rev-block::before{{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--rbc,var(--border))}}
@@ -457,15 +458,17 @@ tr.row-dup td{{opacity:.7}}
       <div class="fc-label">Leads reales generados</div>
       <div class="fc-value">{total_leads}</div>
       <div class="fc-sub">Paid · Social Ads · Orgánico · App · Directo · Social orgánico</div>
+      <div class="webinar-badge">⚡ Incluye nuevos del webinar TIC Negocios · solo se cuentan los que no estaban en BBDD</div>
     </div>
-    <div class="f-card f-sql">
-      <div class="fc-label">SQL totales</div>
-      <div class="fc-value">{sql_total}</div>
-      <div class="fc-pct">{pct_sql_leads}% de leads</div>
-      <div class="fc-breakdown">
-        <div class="fbd-item"><div class="fbd-num" style="color:var(--guru-300)">{sql_freemium}</div><div class="fbd-label">SQL-Freemium</div></div>
-        <div class="fbd-item"><div class="fbd-num" style="color:var(--orange)">{sql_consultoria}</div><div class="fbd-label">SQL-Consultoría</div></div>
-      </div>
+    <div class="f-card f-sql-consult">
+      <div class="fc-label">SQL · Consultoría</div>
+      <div class="fc-value">{sql_consultoria}</div>
+      <div class="fc-sub">Leads cualificados para consultoría</div>
+    </div>
+    <div class="f-card f-sql-free">
+      <div class="fc-label">SQL · Freemium</div>
+      <div class="fc-value">{sql_freemium}</div>
+      <div class="fc-sub">Registros vía app cualificados</div>
     </div>
     <div class="f-card f-demo">
       <div class="fc-label">Reuniones agendadas · período</div>
@@ -536,3 +539,4 @@ function filterDeals(q){{
 
 if __name__ == "__main__":
     main()
+
