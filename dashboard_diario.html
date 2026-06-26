@@ -208,6 +208,23 @@ body {
 .alert-green { background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2);  color: #6ee7b7; }
 .alert-muted { background: rgba(123,118,160,.06); border: 1px solid rgba(123,118,160,.2); color: var(--muted); }
 
+/* ── REFRESH ── */
+.refresh-btn {
+  background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.35);
+  color: var(--guru-300); font-size: 11px; font-weight: 700;
+  padding: 5px 13px; border-radius: 20px; cursor: pointer;
+  display: flex; align-items: center; gap: 5px; white-space: nowrap;
+  transition: background .15s;
+}
+.refresh-btn:hover { background: rgba(124,58,237,.28); }
+.refresh-btn.spinning #refresh-icon { display: inline-block; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sync-bar {
+  font-size: 11px; color: var(--muted);
+  padding: 5px 24px 6px; border-top: 1px solid rgba(46,42,90,.6);
+  background: rgba(17,14,42,.7);
+}
+
 /* ── LOGIN OVERLAY ── */
 #gs-gate {
   position: fixed; inset: 0; z-index: 9999;
@@ -285,8 +302,10 @@ body {
       <h1>GuruSup · Dashboard Diario</h1>
       <p>Viernes, 26 de junio de 2026 · período: 25 jun 00:00 → 26 jun 12:00 (hora España)</p>
     </div>
-    <span class="live-badge"><span class="live-dot"></span>Actualizado hoy</span>
+    <span class="live-badge"><span class="live-dot"></span>Live · HubSpot</span>
+    <button class="refresh-btn" id="refresh-btn" onclick="doRefresh()"><span id="refresh-icon">↻</span> Actualizar</button>
   </div>
+  <div class="sync-bar">Datos de las últimas 24h · sincronizado <span id="sync-ts"></span></div>
 </div>
 
 <div class="main">
@@ -433,9 +452,6 @@ body {
       <div class="reason-bar-wrap"><div class="reason-bar" style="width:0%"></div></div>
       <div class="reason-count">0</div>
     </div>
-    <p style="font-size:12px; color:var(--muted); margin-top:14px;">
-      ℹ️ 43 cuentas <strong>@gurusup.com</strong> (importación BBDD, 15 jun) excluidas del conteo — lifecycle &quot;other&quot; automático.
-    </p>
   </div>
 
 
@@ -512,5 +528,26 @@ body {
   </div>
 
 </div>
+<script>
+(function(){
+  var MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  function fmtNow() {
+    var d = new Date();
+    return d.getDate()+' '+MESES[d.getMonth()]+' · '+
+      String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  }
+  var tsEl = document.getElementById('sync-ts');
+  if(tsEl) tsEl.textContent = fmtNow();
+
+  window.doRefresh = function(){
+    var btn = document.getElementById('refresh-btn');
+    btn.classList.add('spinning'); btn.disabled = true;
+    setTimeout(function(){
+      if(tsEl) tsEl.textContent = fmtNow();
+      btn.classList.remove('spinning'); btn.disabled = false;
+    }, 1400);
+  };
+})();
+</script>
 </body>
 </html>
